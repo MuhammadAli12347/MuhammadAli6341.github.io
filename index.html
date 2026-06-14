@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muhammad Ali — Marketing Specialist</title>
+<title>Muhammad Ali — Marketing Strategist & Event Manager</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -259,11 +259,50 @@
     background: var(--purple-dim); border-left: 2px solid var(--purple);
     border-radius: 0 8px 8px 0; font-size: .85rem; color: rgba(248,248,255,.8);
   }
-  .tl-img-placeholder {
-    margin-top: 1rem; height: 90px; border-radius: 10px;
-    background: rgba(255,255,255,.03); border: 1px dashed rgba(138,43,226,.3);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--muted); font-size: .78rem; gap: .5rem;
+  /* IMAGE UPLOAD GRID */
+  .img-upload-section { margin-top: 1.2rem; }
+  .img-upload-label {
+    font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--purple); margin-bottom: .6rem; display: block;
+  }
+  .img-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: .5rem;
+  }
+  .img-slot {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    background: rgba(255,255,255,.03);
+    border: 1px dashed rgba(138,43,226,.3);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: .3rem; cursor: pointer; position: relative;
+    overflow: hidden; transition: border-color .25s, background .25s;
+  }
+  .img-slot:hover { border-color: var(--purple); background: var(--purple-dim); }
+  .img-slot input[type=file] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .img-slot-icon { color: rgba(138,43,226,.5); pointer-events: none; flex-shrink: 0; }
+  .img-slot-text { font-size: .58rem; color: var(--muted); pointer-events: none; text-align: center; line-height: 1.3; padding: 0 4px; }
+  .img-slot img.preview {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; border-radius: 9px; display: none;
+  }
+  .img-slot.has-image .img-slot-icon,
+  .img-slot.has-image .img-slot-text { display: none; }
+  .img-slot.has-image img.preview { display: block; }
+  .img-slot .remove-btn {
+    position: absolute; top: 3px; right: 3px; z-index: 3;
+    background: rgba(10,10,10,.85); border: 1px solid rgba(255,255,255,.2);
+    color: var(--white); border-radius: 50%; width: 20px; height: 20px;
+    display: none; align-items: center; justify-content: center;
+    cursor: pointer; font-size: .75rem; line-height: 1;
+  }
+  .img-slot.has-image:hover .remove-btn { display: flex; }
+  @media (max-width: 600px) {
+    .img-upload-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
   /* ── PROJECTS ── */
@@ -393,8 +432,22 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-image { display: none; }
+    .hero-inner {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .hero-image {
+      display: flex;
+      order: -1;
+      justify-content: center;
+    }
+    .headshot-wrap {
+      width: 200px;
+      height: 240px;
+    }
+    .hero-buttons { justify-content: center; }
+    .hero-sub, .hero-bio { margin-left: auto; margin-right: auto; }
+    .hero-tag { display: inline-flex; }
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .nav-links { display: none; }
@@ -411,7 +464,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#home" class="nav-logo">Muhammad Ali<span>.</span></a>
+  <a href="#home" class="nav-logo">MA<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -442,7 +495,7 @@
           <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
             <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
           </svg>
-          <span style="color:rgba(248,248,255,.3);font-size:.8rem"><img src="KC4A2107.JPG" alt="Headshot" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></span>
+          <span style="color:rgba(248,248,255,.3);font-size:.8rem">Upload Headshot</span>
         </div>
         <div class="headshot-glow"></div>
       </div>
@@ -511,9 +564,46 @@
             <li>Spearheaded comprehensive marketing strategies and managed 360-solution campaigns for high-profile clients including ICC, Diners, J., Signature Mall UK, Igloo & more.</li>
             <li>Successfully planned and executed over 20 large-scale corporate and public events, ensuring high-quality brand representation across all platforms.</li>
           </ul>
-          <div class="tl-img-placeholder">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Upload Agency Logo / Major Event Shot
+
+          <div class="img-upload-section">
+            <span class="img-upload-label">📷 Kolachi Events — Agency Logos & Event Shots</span>
+            <div class="img-upload-grid">
+          <div class="img-slot" id="slot-kolachi-1">
+            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-1')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 1</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'kolachi-1')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-kolachi-2">
+            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-2')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 2</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'kolachi-2')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-kolachi-3">
+            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-3')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 3</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'kolachi-3')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-kolachi-4">
+            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-4')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 4</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'kolachi-4')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-kolachi-5">
+            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-5')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 5</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'kolachi-5')">✕</button>
+          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -536,9 +626,46 @@
             <li>Visited different sites and events in person to run promotional activities and introduce the product directly to customers.</li>
             <li>Managed PR and partnerships with actors and influencers to promote the brand and amplify product awareness.</li>
           </ul>
-          <div class="tl-img-placeholder">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Upload Melo Brand Logo / Ad Campaign Graphic
+
+          <div class="img-upload-section">
+            <span class="img-upload-label">📷 Melo — Brand Visuals & Campaign Graphics</span>
+            <div class="img-upload-grid">
+          <div class="img-slot" id="slot-melo-1">
+            <input type="file" accept="image/*" onchange="previewImg(this,'melo-1')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 1</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'melo-1')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-melo-2">
+            <input type="file" accept="image/*" onchange="previewImg(this,'melo-2')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 2</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'melo-2')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-melo-3">
+            <input type="file" accept="image/*" onchange="previewImg(this,'melo-3')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 3</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'melo-3')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-melo-4">
+            <input type="file" accept="image/*" onchange="previewImg(this,'melo-4')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 4</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'melo-4')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-melo-5">
+            <input type="file" accept="image/*" onchange="previewImg(this,'melo-5')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 5</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'melo-5')">✕</button>
+          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -558,9 +685,46 @@
             <li>Negotiated lease terms, prepared contracts, and ensured high occupancy rates through proactive outreach and client relationship management.</li>
             <li>Conducted market analysis to establish competitive rental rates and optimize the mall's tenant mix.</li>
           </ul>
-          <div class="tl-img-placeholder">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Upload Mega Mall Interior / Event Shot
+
+          <div class="img-upload-section">
+            <span class="img-upload-label">📷 Mega Mall — Interiors & Event Shots</span>
+            <div class="img-upload-grid">
+          <div class="img-slot" id="slot-megamall-1">
+            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-1')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 1</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'megamall-1')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-megamall-2">
+            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-2')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 2</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'megamall-2')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-megamall-3">
+            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-3')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 3</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'megamall-3')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-megamall-4">
+            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-4')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 4</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'megamall-4')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-megamall-5">
+            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-5')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 5</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'megamall-5')">✕</button>
+          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -580,9 +744,46 @@
             <li>Supported the successful execution of multiple large-scale promotional events, including logistics, vendor management, and on-site coordination.</li>
             <li>Coordinated daily marketing communications, including social media and website updates.</li>
           </ul>
-          <div class="tl-img-placeholder">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Upload Square One Mall Promotional Graphic
+
+          <div class="img-upload-section">
+            <span class="img-upload-label">📷 Square One Mall — Promotional Graphics & Events</span>
+            <div class="img-upload-grid">
+          <div class="img-slot" id="slot-squareone-1">
+            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-1')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 1</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'squareone-1')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-squareone-2">
+            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-2')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 2</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'squareone-2')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-squareone-3">
+            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-3')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 3</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'squareone-3')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-squareone-4">
+            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-4')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 4</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'squareone-4')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-squareone-5">
+            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-5')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 5</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'squareone-5')">✕</button>
+          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -602,9 +803,46 @@
             <li>Developed and executed annual and seasonal campaigns that increased mall foot traffic during peak periods.</li>
             <li>Managed a six-figure marketing budget and oversaw partnerships with various brands.</li>
           </ul>
-          <div class="tl-img-placeholder">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Upload Atrium Mall Exterior / Key Event Image
+
+          <div class="img-upload-section">
+            <span class="img-upload-label">📷 Atrium Mall — Exterior & Key Events</span>
+            <div class="img-upload-grid">
+          <div class="img-slot" id="slot-atrium-1">
+            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-1')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 1</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'atrium-1')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-atrium-2">
+            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-2')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 2</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'atrium-2')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-atrium-3">
+            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-3')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 3</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'atrium-3')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-atrium-4">
+            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-4')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 4</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'atrium-4')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-atrium-5">
+            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-5')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 5</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'atrium-5')">✕</button>
+          </div>
+            </div>
           </div>
         </div>
       </div>
@@ -624,11 +862,47 @@
     <div class="projects-grid">
 
       <div class="project-card fade-in">
-        <div class="project-img">
+        <div class="project-img" style="height:auto;padding:1.2rem;display:block;">
           <div class="project-num">Project 01</div>
-          <div class="project-img-inner">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="rgba(138,43,226,.5)" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            <span style="font-size:.75rem">Upload Stadium Branding / Crowd Photos</span>
+          <div class="img-upload-section">
+            <span class="img-upload-label">📷 ICC Champions Trophy — Stadium & Crowd Photos</span>
+            <div class="img-upload-grid">
+          <div class="img-slot" id="slot-icc-1">
+            <input type="file" accept="image/*" onchange="previewImg(this,'icc-1')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 1</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'icc-1')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-icc-2">
+            <input type="file" accept="image/*" onchange="previewImg(this,'icc-2')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 2</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'icc-2')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-icc-3">
+            <input type="file" accept="image/*" onchange="previewImg(this,'icc-3')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 3</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'icc-3')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-icc-4">
+            <input type="file" accept="image/*" onchange="previewImg(this,'icc-4')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 4</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'icc-4')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-icc-5">
+            <input type="file" accept="image/*" onchange="previewImg(this,'icc-5')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 5</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'icc-5')">✕</button>
+          </div>
+            </div>
           </div>
         </div>
         <div class="project-body">
@@ -644,11 +918,47 @@
       </div>
 
       <div class="project-card fade-in">
-        <div class="project-img">
+        <div class="project-img" style="height:auto;padding:1.2rem;display:block;">
           <div class="project-num">Project 02</div>
-          <div class="project-img-inner">
-            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="rgba(138,43,226,.5)" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            <span style="font-size:.75rem">Upload Diners, J., Igloo Event Collage</span>
+          <div class="img-upload-section">
+            <span class="img-upload-label">📷 Corporate Events — Diners, J., Igloo Setups</span>
+            <div class="img-upload-grid">
+          <div class="img-slot" id="slot-corp-1">
+            <input type="file" accept="image/*" onchange="previewImg(this,'corp-1')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 1</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'corp-1')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-corp-2">
+            <input type="file" accept="image/*" onchange="previewImg(this,'corp-2')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 2</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'corp-2')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-corp-3">
+            <input type="file" accept="image/*" onchange="previewImg(this,'corp-3')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 3</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'corp-3')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-corp-4">
+            <input type="file" accept="image/*" onchange="previewImg(this,'corp-4')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 4</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'corp-4')">✕</button>
+          </div>
+          <div class="img-slot" id="slot-corp-5">
+            <input type="file" accept="image/*" onchange="previewImg(this,'corp-5')">
+            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
+            <span class="img-slot-text">Photo 5</span>
+            <img class="preview" alt="">
+            <button class="remove-btn" onclick="removeImg(event,'corp-5')">✕</button>
+          </div>
+            </div>
           </div>
         </div>
         <div class="project-body">
@@ -856,6 +1166,26 @@ const observer = new IntersectionObserver((entries)=>{
   });
 },{threshold:.15});
 document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+/* ── IMAGE UPLOAD PREVIEW ── */
+function previewImg(input, sid) {
+  const slot = document.getElementById('slot-' + sid);
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    slot.querySelector('img.preview').src = e.target.result;
+    slot.classList.add('has-image');
+  };
+  reader.readAsDataURL(file);
+}
+function removeImg(e, sid) {
+  e.preventDefault(); e.stopPropagation();
+  const slot = document.getElementById('slot-' + sid);
+  slot.querySelector('img.preview').src = '';
+  slot.querySelector('input[type=file]').value = '';
+  slot.classList.remove('has-image');
+}
 
 /* ── SKILL BARS from CSS var (fallback) ── */
 document.querySelectorAll('.skill-bar-fill').forEach(b=>{
