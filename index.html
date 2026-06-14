@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Ali — Marketing Strategist & Event Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --card: #1a1a1a;
+    --purple: #8A2BE2;
+    --purple-glow: rgba(138, 43, 226, 0.35);
+    --purple-dim: rgba(138, 43, 226, 0.12);
+    --white: #F8F8FF;
+    --muted: rgba(248,248,255,0.5);
+    --border: rgba(138, 43, 226, 0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 5%;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.15rem; letter-spacing: .06em;
+    color: var(--white); text-decoration: none;
+  }
+  .nav-logo span { color: var(--purple); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: .88rem; letter-spacing: .05em;
+    transition: color .25s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: transparent; border: 1px solid var(--purple);
+    color: var(--purple); padding: .45rem 1.2rem; border-radius: 6px;
+    font-family: 'Inter', sans-serif; font-size: .85rem; cursor: pointer;
+    transition: all .25s; text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--purple); color: var(--white); box-shadow: 0 0 18px var(--purple-glow); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 7rem 5% 4rem;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 70% 60% at 70% 40%, rgba(138,43,226,.18) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(138,43,226,.08) 0%, transparent 60%);
+    animation: bgPulse 8s ease-in-out infinite alternate;
+  }
+  @keyframes bgPulse {
+    from { opacity: .7; }
+    to   { opacity: 1; }
+  }
+
+  /* Particle canvas */
+  #particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+  .hero-inner {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center;
+    max-width: 1200px; margin: 0 auto; width: 100%;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--purple-dim); border: 1px solid var(--border);
+    border-radius: 100px; padding: .3rem .85rem;
+    font-size: .78rem; letter-spacing: .1em; color: var(--purple);
+    text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: blink 1.4s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700; line-height: 1.1; letter-spacing: -.02em;
+    margin-bottom: 1.2rem;
+  }
+  h1 em { font-style: normal; color: var(--purple); }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted); max-width: 480px;
+    margin-bottom: 1.4rem; line-height: 1.7;
+  }
+  .hero-bio {
+    font-size: .92rem; color: rgba(248,248,255,.65);
+    max-width: 500px; margin-bottom: 2.2rem; line-height: 1.75;
+  }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--purple); color: var(--white);
+    border: none; padding: .75rem 1.8rem; border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: .92rem; font-weight: 500;
+    cursor: pointer; text-decoration: none;
+    transition: all .25s;
+    box-shadow: 0 0 0 0 var(--purple-glow);
+  }
+  .btn-primary:hover { box-shadow: 0 0 28px var(--purple-glow); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; border: 1px solid rgba(248,248,255,.25);
+    color: var(--white); padding: .75rem 1.8rem; border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: .92rem;
+    cursor: pointer; text-decoration: none; transition: all .25s;
+  }
+  .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
+
+  /* Headshot */
+  .hero-image {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+  }
+  .headshot-wrap {
+    width: 340px; height: 400px; position: relative;
+  }
+  .headshot-placeholder {
+    width: 100%; height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: .8rem;
+    color: var(--muted); font-size: .85rem;
+    position: relative; overflow: hidden;
+  }
+  .headshot-placeholder::before {
+    content: '';
+    position: absolute; inset: -1px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--purple), transparent 60%);
+    z-index: -1; opacity: .5;
+  }
+  .headshot-placeholder svg { opacity: .4; }
+  .headshot-glow {
+    position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 60px;
+    background: var(--purple); filter: blur(50px); opacity: .35;
+    pointer-events: none;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: .75rem; letter-spacing: .18em; color: var(--purple);
+    text-transform: uppercase; margin-bottom: .6rem;
+  }
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700; letter-spacing: -.02em; margin-bottom: 1.2rem;
+  }
+  .divider { width: 48px; height: 2px; background: var(--purple); margin-bottom: 2.5rem; border-radius: 2px; }
+
+  /* Fade-in on scroll */
+  .fade-in { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+  }
+  .glass-card {
+    background: rgba(26,26,26,.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 2.2rem;
+  }
+  .about-text { color: rgba(248,248,255,.72); font-size: .96rem; line-height: 1.85; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-top: 2rem;
+  }
+  .stat-box {
+    background: var(--purple-dim); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.3rem;
+  }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem; font-weight: 700; color: var(--purple);
+  }
+  .stat-label { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+
+  /* ── EXPERIENCE (Timeline) ── */
+  #experience { background: #0d0d0d; }
+  .timeline { position: relative; padding-left: 2.5rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--purple), transparent);
+  }
+  .tl-item { position: relative; margin-bottom: 2.5rem; }
+  .tl-dot {
+    position: absolute; left: -2.5rem; top: .3rem;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--purple); border: 2px solid var(--bg);
+    box-shadow: 0 0 12px var(--purple-glow);
+  }
+  .tl-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.6rem 1.8rem;
+    transition: border-color .3s, box-shadow .3s;
+    cursor: default;
+  }
+  .tl-card:hover {
+    border-color: var(--purple);
+    box-shadow: 0 0 24px var(--purple-glow);
+  }
+  .tl-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: .5rem; margin-bottom: .8rem; }
+  .tl-role { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; }
+  .tl-company { color: var(--purple); font-size: .88rem; margin-top: .15rem; }
+  .tl-duration {
+    font-size: .78rem; color: var(--muted);
+    background: var(--purple-dim); border: 1px solid var(--border);
+    padding: .2rem .7rem; border-radius: 100px; white-space: nowrap;
+  }
+  .tl-body { color: rgba(248,248,255,.65); font-size: .9rem; line-height: 1.7; }
+  .tl-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: .55rem;
+  }
+  .tl-list li {
+    padding-left: 1.2rem; position: relative;
+  }
+  .tl-list li::before {
+    content: '✦'; position: absolute; left: 0;
+    color: var(--purple); font-size: .65rem; top: .28rem;
+  }
+  .tl-achievement {
+    margin-top: .9rem; padding: .7rem 1rem;
+    background: var(--purple-dim); border-left: 2px solid var(--purple);
+    border-radius: 0 8px 8px 0; font-size: .85rem; color: rgba(248,248,255,.8);
+  }
+  .tl-img-placeholder {
+    margin-top: 1rem; height: 90px; border-radius: 10px;
+    background: rgba(255,255,255,.03); border: 1px dashed rgba(138,43,226,.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: .78rem; gap: .5rem;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 18px; overflow: hidden;
+    transition: border-color .3s, box-shadow .3s, transform .3s;
+    cursor: default;
+  }
+  .project-card:hover {
+    border-color: var(--purple);
+    box-shadow: 0 0 36px var(--purple-glow);
+    transform: translateY(-4px);
+  }
+  .project-img {
+    height: 200px; background: linear-gradient(135deg, #1a1a1a, #111);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: .6rem; color: var(--muted); font-size: .82rem;
+    border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
+    transition: transform .3s;
+  }
+  .project-card:hover .project-img { transform: scale(1.05); }
+  .project-img-inner { display: flex; flex-direction: column; align-items: center; gap: .6rem; }
+  .project-num {
+    position: absolute; top: 1rem; left: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .7rem; letter-spacing: .15em; color: var(--purple);
+    background: var(--purple-dim); border: 1px solid var(--border);
+    padding: .2rem .6rem; border-radius: 100px;
+  }
+  .project-body { padding: 1.5rem 1.6rem; }
+  .project-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; margin-bottom: .5rem; }
+  .project-desc { color: rgba(248,248,255,.6); font-size: .88rem; line-height: 1.7; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .tag {
+    font-size: .72rem; letter-spacing: .05em;
+    background: var(--purple-dim); border: 1px solid var(--border);
+    color: var(--purple); padding: .2rem .65rem; border-radius: 100px;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: #0d0d0d; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    transition: border-color .3s, box-shadow .3s;
+  }
+  .skill-card:hover { border-color: var(--purple); box-shadow: 0 0 20px var(--purple-glow); }
+  .skill-header { display: flex; align-items: center; gap: .8rem; margin-bottom: 1rem; }
+  .skill-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--purple-dim); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--purple);
+  }
+  .skill-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: .95rem; }
+  .skill-sub { color: var(--muted); font-size: .78rem; margin-top: .15rem; }
+  .skill-bar-bg {
+    height: 4px; background: rgba(255,255,255,.07); border-radius: 2px; overflow: hidden;
+    margin-bottom: .4rem;
+  }
+  .skill-bar-fill {
+    height: 100%; background: linear-gradient(90deg, var(--purple), #b06ee8);
+    border-radius: 2px; width: 0;
+    transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 0 8px var(--purple-glow);
+  }
+  .skill-pct { font-size: .72rem; color: var(--muted); text-align: right; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; }
+  .contact-info p { color: var(--muted); font-size: .95rem; line-height: 1.75; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: .85rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: .75rem;
+    color: rgba(248,248,255,.7); text-decoration: none; font-size: .9rem;
+    transition: color .2s;
+  }
+  .contact-link:hover { color: var(--purple); }
+  .contact-link-icon {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: var(--purple-dim); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; color: var(--purple);
+    transition: box-shadow .2s;
+  }
+  .contact-link:hover .contact-link-icon { box-shadow: 0 0 14px var(--purple-glow); }
+
+  /* Form */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: .4rem; }
+  .form-group label { font-size: .8rem; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+  .form-group input, .form-group textarea {
+    background: #141414; border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: .85rem 1rem;
+    color: var(--white); font-family: 'Inter', sans-serif; font-size: .9rem;
+    outline: none; transition: border-color .25s, box-shadow .25s;
+    resize: none;
+  }
+  .form-group input:focus, .form-group textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px var(--purple-dim);
+  }
+  .form-group textarea { min-height: 130px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .btn-submit {
+    background: var(--purple); border: none; color: var(--white);
+    padding: .85rem 1.8rem; border-radius: 10px;
+    font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 500;
+    cursor: pointer; transition: all .25s; display: flex; align-items: center; gap: .5rem;
+    align-self: flex-start;
+  }
+  .btn-submit:hover { box-shadow: 0 0 28px var(--purple-glow); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 5%; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    color: var(--muted); font-size: .82rem;
+  }
+  footer a { color: var(--muted); text-decoration: none; transition: color .2s; }
+  footer a:hover { color: var(--purple); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-image { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { opacity: 1; transform: none; transition: none; }
+    .skill-bar-fill { transition: none; }
+    .bgPulse { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">MA<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <canvas id="particles"></canvas>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">Available for New Projects</div>
+      <h1>Architecting<br><em>Next-Gen Brand</em><br>Experiences.</h1>
+      <p class="hero-sub">Bridging the gap between digital performance and real-world impact.</p>
+      <p class="hero-bio">Hello, I am Muhammad Ali. A highly versatile Marketing Strategist and Event Manager dedicated to building immersive brand journeys — from orchestrating nationwide mega-events to scaling e-commerce ecosystems.</p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="headshot-wrap">
+        <div class="headshot-placeholder">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <span style="color:rgba(248,248,255,.3);font-size:.8rem">Upload Headshot</span>
+        </div>
+        <div class="headshot-glow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">About Me</p>
+      <h2>The Journey Behind the Strategy</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="about-grid fade-in">
+      <div class="glass-card">
+        <p class="about-text">With over six years of rigorous professional experience in marketing, advertising, and brand management, my career has been defined by a relentless pursuit of growth. I operate at the intersection of traditional brand building and modern digital ecosystems.</p>
+        <p class="about-text" style="margin-top:1rem">Whether negotiating high-stakes commercial leases, optimizing online conversion rates, or launching high-impact OOH campaigns, my core professional value remains the same: delivering sustainable, scalable results. I thrive in dynamic environments where creativity meets analytics, ensuring every campaign not only looks spectacular but performs exceptionally.</p>
+      </div>
+      <div>
+        <div class="about-stats">
+          <div class="stat-box fade-in">
+            <div class="stat-num">6+</div>
+            <div class="stat-label">Years of Experience</div>
+          </div>
+          <div class="stat-box fade-in">
+            <div class="stat-num">$10K+</div>
+            <div class="stat-label">Campaign Budgets Managed</div>
+          </div>
+          <div class="stat-box fade-in">
+            <div class="stat-num">5</div>
+            <div class="stat-label">Major Brands Served</div>
+          </div>
+          <div class="stat-box fade-in">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Cities for ICC Operations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">Career Timeline</p>
+      <h2>Professional Experience</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Marketing Manager</div>
+              <div class="tl-company">Kolachi Events & Marketing</div>
+            </div>
+            <div class="tl-duration">1.8 Years</div>
+          </div>
+          <ul class="tl-body tl-list">
+            <li>Spearheaded comprehensive marketing strategies and managed 360-solution campaigns for high-profile clients including ICC, Diners, J., Signature Mall UK, Igloo & more.</li>
+            <li>Successfully planned and executed over 20 large-scale corporate and public events, ensuring high-quality brand representation across all platforms.</li>
+          </ul>
+          <div class="tl-img-placeholder">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            Upload Agency Logo / Major Event Shot
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Digital Marketing Manager</div>
+              <div class="tl-company">Melo by Imran Abbas</div>
+            </div>
+            <div class="tl-duration">1 Year</div>
+          </div>
+          <ul class="tl-body tl-list">
+            <li>Set up and managed the e-commerce store, handling everything from the initial launch to daily updates and tracking sales.</li>
+            <li>Managed all digital marketing, including setting up and running Meta (Facebook/Instagram) and Google Ads to increase sales and acquire new customers.</li>
+            <li>Handled social media accounts, creating and scheduling content to keep followers active and engaged.</li>
+            <li>Drove SEO strategy and content execution to improve organic visibility, product page rankings, and inbound lead generation.</li>
+            <li>Visited different sites and events in person to run promotional activities and introduce the product directly to customers.</li>
+            <li>Managed PR and partnerships with actors and influencers to promote the brand and amplify product awareness.</li>
+          </ul>
+          <div class="tl-img-placeholder">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            Upload Melo Brand Logo / Ad Campaign Graphic
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Marketing Executive</div>
+              <div class="tl-company">Mega Mall</div>
+            </div>
+            <div class="tl-duration">8 Months</div>
+          </div>
+          <ul class="tl-body tl-list">
+            <li>Managed the full-cycle leasing process for commercial retail spaces within a large shopping center environment.</li>
+            <li>Negotiated lease terms, prepared contracts, and ensured high occupancy rates through proactive outreach and client relationship management.</li>
+            <li>Conducted market analysis to establish competitive rental rates and optimize the mall's tenant mix.</li>
+          </ul>
+          <div class="tl-img-placeholder">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            Upload Mega Mall Interior / Event Shot
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Marketing Executive</div>
+              <div class="tl-company">Square One Mall</div>
+            </div>
+            <div class="tl-duration">8 Months</div>
+          </div>
+          <ul class="tl-body tl-list">
+            <li>Managed all mall events and promotional activities, from conceptualization to execution.</li>
+            <li>Supported the successful execution of multiple large-scale promotional events, including logistics, vendor management, and on-site coordination.</li>
+            <li>Coordinated daily marketing communications, including social media and website updates.</li>
+          </ul>
+          <div class="tl-img-placeholder">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            Upload Square One Mall Promotional Graphic
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item fade-in">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Marketing Executive</div>
+              <div class="tl-company">Atrium Mall</div>
+            </div>
+            <div class="tl-duration">3 Years</div>
+          </div>
+          <ul class="tl-body tl-list">
+            <li>Managed the entire mall events calendar, coordinating all promotional and public-facing activities to enhance visitor experience.</li>
+            <li>Developed and executed annual and seasonal campaigns that increased mall foot traffic during peak periods.</li>
+            <li>Managed a six-figure marketing budget and oversaw partnerships with various brands.</li>
+          </ul>
+          <div class="tl-img-placeholder">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            Upload Atrium Mall Exterior / Key Event Image
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">Selected Work</p>
+      <h2>Projects Gallery</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-img">
+          <div class="project-num">Project 01</div>
+          <div class="project-img-inner">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="rgba(138,43,226,.5)" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span style="font-size:.75rem">Upload Stadium Branding / Crowd Photos</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-title">ICC Champions Trophy 2025</div>
+          <p class="project-desc">Directed nationwide event operations for the prestigious international cricket tournament, overseeing logistics, branding, and on-ground management across multiple cities.</p>
+          <div class="project-tags">
+            <span class="tag">Event Operations</span>
+            <span class="tag">Multi-City</span>
+            <span class="tag">Logistics</span>
+            <span class="tag">Karachi · Lahore · Rawalpindi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-img">
+          <div class="project-num">Project 02</div>
+          <div class="project-img-inner">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="rgba(138,43,226,.5)" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span style="font-size:.75rem">Upload Diners, J., Igloo Event Collage</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-title">Corporate Event Masterclasses</div>
+          <p class="project-desc">Designed and executed high-profile corporate events and brand activations for top-tier national brands including Diners, J., and Igloo.</p>
+          <div class="project-tags">
+            <span class="tag">Brand Activation</span>
+            <span class="tag">Corporate Events</span>
+            <span class="tag">Vendor Management</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">Capabilities</p>
+      <h2>Skills Matrix</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-card fade-in" data-skill="92">
+        <div class="skill-header">
+          <div class="skill-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <div class="skill-name">Event Planning & Operations</div>
+            <div class="skill-sub">Nationwide logistics · vendor management · on-ground execution</div>
+          </div>
+        </div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:92%"></div></div>
+        <div class="skill-pct">92%</div>
+      </div>
+
+      <div class="skill-card fade-in" data-skill="88">
+        <div class="skill-header">
+          <div class="skill-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="skill-name">Performance Marketing</div>
+            <div class="skill-sub">Meta Ads · Google Ads · Budget management · ROI scaling</div>
+          </div>
+        </div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:88%"></div></div>
+        <div class="skill-pct">88%</div>
+      </div>
+
+      <div class="skill-card fade-in" data-skill="85">
+        <div class="skill-header">
+          <div class="skill-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div>
+            <div class="skill-name">Digital Marketing & SEO</div>
+            <div class="skill-sub">Search visibility · content strategy · brand positioning</div>
+          </div>
+        </div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:85%"></div></div>
+        <div class="skill-pct">85%</div>
+      </div>
+
+      <div class="skill-card fade-in" data-skill="90">
+        <div class="skill-header">
+          <div class="skill-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-8l-2 4h12z"/></svg>
+          </div>
+          <div>
+            <div class="skill-name">Commercial Strategy</div>
+            <div class="skill-sub">Leasing negotiations · B2B pitching · tenant relations</div>
+          </div>
+        </div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:90%"></div></div>
+        <div class="skill-pct">90%</div>
+      </div>
+
+      <div class="skill-card fade-in" data-skill="82">
+        <div class="skill-header">
+          <div class="skill-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          </div>
+          <div>
+            <div class="skill-name">E-Commerce Optimization</div>
+            <div class="skill-sub">CRO audits · dropshipping ecosystems · consumer journey mapping</div>
+          </div>
+        </div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:82%"></div></div>
+        <div class="skill-pct">82%</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">Contact</p>
+      <h2>Let's Build the Future<br>of Your Brand.</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="contact-grid fade-in">
+      <div class="contact-info">
+        <p>Ready to elevate your brand? Whether it's a large-scale event, a performance marketing campaign, or a full brand overhaul — let's talk strategy.</p>
+        <div class="contact-links">
+          <a href="mailto:hello@muhammadali.com" class="contact-link">
+            <div class="contact-link-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            hello@muhammadali.com
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="contact-link">
+            <div class="contact-link-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            linkedin.com/in/muhammadali
+          </a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="your@email.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" placeholder="What's this about?">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button class="btn-submit">
+          Send Message
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Muhammad Ali. All rights reserved.</span>
+  <div style="display:flex;gap:1.5rem">
+    <a href="mailto:hello@muhammadali.com">Email</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+/* ── PARTICLES ── */
+(function(){
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, dots = [];
+  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize); resize();
+  for(let i=0;i<55;i++) dots.push({
+    x: Math.random()*1920, y: Math.random()*1080,
+    r: Math.random()*1.4+.4,
+    vx: (Math.random()-.5)*.18,
+    vy: (Math.random()-.5)*.18,
+    a: Math.random()*.5+.1
+  });
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    dots.forEach(d=>{
+      d.x+=d.vx; d.y+=d.vy;
+      if(d.x<0||d.x>W) d.vx*=-1;
+      if(d.y<0||d.y>H) d.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(138,43,226,${d.a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── SCROLL FADE-IN ── */
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      // animate skill bars
+      const bar = e.target.querySelector('.skill-bar-fill');
+      if(bar){ const w = e.target.dataset.skill||'0'; setTimeout(()=>bar.style.width=w+'%',100); }
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+/* ── SKILL BARS from CSS var (fallback) ── */
+document.querySelectorAll('.skill-bar-fill').forEach(b=>{
+  const w = getComputedStyle(b).getPropertyValue('--w');
+  b.style.setProperty('--w', w);
+});
+</script>
+</body>
+</html>
