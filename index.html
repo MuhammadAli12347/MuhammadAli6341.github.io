@@ -51,9 +51,9 @@
   .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
   .hero-image { display: flex; justify-content: center; align-items: center; position: relative; }
   .headshot-wrap { width: 340px; height: 400px; position: relative; }
-  .headshot-box { width: 100%; height: 100%; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); position: relative; background: #111; }
-  .headshot-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  /* If no real image, show fallback */
+  .headshot-box { width: 100%; height: 100%; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); position: relative; background: #111; cursor: pointer; }
+  .headshot-box img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+  .headshot-box:hover img { transform: scale(1.04); }
   .headshot-box .fallback { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; color: var(--muted); font-size: .85rem; }
   .headshot-box .fallback svg { opacity: .4; }
   .headshot-box::before { content: ''; position: absolute; inset: -1px; border-radius: 20px; background: linear-gradient(135deg, var(--purple), transparent 60%); z-index: -1; opacity: .5; }
@@ -92,14 +92,40 @@
   .tl-list li { padding-left: 1.2rem; position: relative; }
   .tl-list li::before { content: '✦'; position: absolute; left: 0; color: var(--purple); font-size: .65rem; top: .28rem; }
 
-  /* IMAGE STRIP — 5 fixed images per section */
+  /* IMAGE STRIP */
   .img-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: .6rem; margin-top: 1.2rem; }
-  .img-strip-cell { aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #111; border: 1px solid rgba(138,43,226,.2); }
+  .img-strip-cell { aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #111; border: 1px solid rgba(138,43,226,.2); cursor: pointer; position: relative; }
   .img-strip-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
   .img-strip-cell:hover img { transform: scale(1.08); }
-  /* placeholder when no image */
-  .img-strip-cell.empty { display: flex; align-items: center; justify-content: center; background: rgba(138,43,226,.05); border: 1px dashed rgba(138,43,226,.2); }
+  .img-strip-cell.empty { display: flex; align-items: center; justify-content: center; background: rgba(138,43,226,.05); border: 1px dashed rgba(138,43,226,.2); cursor: default; }
   .img-strip-cell.empty span { font-size: .6rem; color: rgba(138,43,226,.3); letter-spacing: .05em; }
+  /* Zoom icon overlay on hover */
+  .img-strip-cell:not(.empty)::after { content: '⤢'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff; background: rgba(138,43,226,.45); opacity: 0; transition: opacity .25s; }
+  .img-strip-cell:not(.empty):hover::after { opacity: 1; }
+
+  /* PROJECT THUMB clickable */
+  .project-thumb-wrap { cursor: pointer; }
+  .project-thumb-wrap:not(.no-img)::after { content: '⤢'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; background: rgba(138,43,226,.45); opacity: 0; transition: opacity .25s; }
+  .project-thumb-wrap:not(.no-img):hover::after { opacity: 1; }
+
+  /* HEADSHOT clickable overlay */
+  .headshot-box::after { content: '⤢'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; background: rgba(138,43,226,.45); opacity: 0; transition: opacity .25s; border-radius: 20px; z-index: 2; }
+  .headshot-box:hover::after { opacity: 1; }
+
+  /* ─── LIGHTBOX ─── */
+  #lightbox { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.88); backdrop-filter: blur(10px); padding: 1.5rem; }
+  #lightbox.open { display: flex; }
+  #lightbox-inner { position: relative; max-width: 860px; width: 100%; animation: lbIn .25s ease; }
+  @keyframes lbIn { from{opacity:0;transform:scale(.94)} to{opacity:1;transform:scale(1)} }
+  #lightbox img { width: 100%; max-height: 80vh; object-fit: contain; border-radius: 14px; border: 1px solid var(--border); display: block; }
+  #lightbox-caption { font-size: .85rem; color: var(--muted); text-align: center; margin-top: .75rem; letter-spacing: .04em; }
+  #lightbox-close { position: absolute; top: -1rem; right: -1rem; width: 36px; height: 36px; border-radius: 50%; background: var(--card); border: 1px solid var(--border); color: var(--white); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; transition: background .2s, box-shadow .2s; z-index: 10; }
+  #lightbox-close:hover { background: var(--purple); box-shadow: 0 0 16px var(--purple-glow); }
+  #lightbox-prev, #lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: var(--card); border: 1px solid var(--border); color: var(--white); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s, box-shadow .2s; z-index: 10; }
+  #lightbox-prev { left: -1.5rem; }
+  #lightbox-next { right: -1.5rem; }
+  #lightbox-prev:hover, #lightbox-next:hover { background: var(--purple); box-shadow: 0 0 16px var(--purple-glow); }
+  #lightbox-prev.hidden, #lightbox-next.hidden { display: none; }
 
   /* PROJECTS */
   #projects { background: var(--bg); }
@@ -109,10 +135,9 @@
   .project-thumb { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform .35s; }
   .project-card:hover .project-thumb { transform: scale(1.04); }
   .project-thumb-wrap { overflow: hidden; position: relative; height: 200px; background: #111; }
-  /* placeholder gradient for projects without image */
-  .project-thumb-wrap.no-img { display: flex; align-items: center; justify-content: center; }
+  .project-thumb-wrap.no-img { display: flex; align-items: center; justify-content: center; cursor: default; }
   .project-thumb-wrap .proj-icon { opacity: .12; }
-  .project-num { position: absolute; top: .8rem; left: .8rem; font-family: 'Space Grotesk', sans-serif; font-size: .7rem; letter-spacing: .15em; color: var(--purple); background: rgba(10,10,10,.85); border: 1px solid var(--border); padding: .2rem .6rem; border-radius: 100px; }
+  .project-num { position: absolute; top: .8rem; left: .8rem; font-family: 'Space Grotesk', sans-serif; font-size: .7rem; letter-spacing: .15em; color: var(--purple); background: rgba(10,10,10,.85); border: 1px solid var(--border); padding: .2rem .6rem; border-radius: 100px; z-index: 2; }
   .project-body { padding: 1.5rem 1.6rem; }
   .project-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; margin-bottom: .5rem; }
   .project-desc { color: rgba(248,248,255,.6); font-size: .88rem; line-height: 1.7; }
@@ -165,6 +190,47 @@
     .form-row { grid-template-columns: 1fr; }
     .nav-links { display: none; }
     .img-strip { grid-template-columns: repeat(3, 1fr); }
+    #lightbox-prev { left: -.5rem; }
+    #lightbox-next { right: -.5rem; }
+  }
+  /* ─── SERVICES ─── */
+  #services { background: #0d0d0d; }
+  .services-intro { color: rgba(248,248,255,.65); font-size: .96rem; line-height: 1.8; max-width: 680px; margin-bottom: 3rem; }
+  .svc-categories { display: flex; flex-direction: column; gap: 2.5rem; }
+  .svc-category { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: border-color .3s, box-shadow .3s; }
+  .svc-category:hover { border-color: var(--purple); box-shadow: 0 0 30px var(--purple-glow); }
+  .svc-cat-header { display: flex; align-items: center; gap: 1rem; padding: 1.6rem 2rem; border-bottom: 1px solid var(--border); background: rgba(138,43,226,.06); }
+  .svc-cat-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--purple-dim); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--purple); flex-shrink: 0; }
+  .svc-cat-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; }
+  .svc-cat-sub { font-size: .8rem; color: var(--purple); margin-top: .15rem; letter-spacing: .04em; }
+  .svc-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0; }
+  .svc-item { padding: 1.4rem 1.8rem; border-right: 1px solid rgba(138,43,226,.12); border-bottom: 1px solid rgba(138,43,226,.12); transition: background .2s; }
+  .svc-item:hover { background: rgba(138,43,226,.07); }
+  .svc-item-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: .9rem; margin-bottom: .35rem; display: flex; align-items: center; gap: .5rem; }
+  .svc-item-name::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
+  .svc-item-desc { font-size: .8rem; color: rgba(248,248,255,.55); line-height: 1.6; }
+
+  @media (max-width: 900px) {
+    .svc-items { grid-template-columns: 1fr 1fr; }
+    .svc-cat-header { padding: 1.2rem 1.4rem; }
+    .svc-item { padding: 1.1rem 1.2rem; }
+  }
+  @media (max-width: 540px) {
+    .svc-items { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-image { order: -1; justify-content: center; }
+    .headshot-wrap { width: 200px; height: 240px; }
+    .hero-buttons { justify-content: center; }
+    .hero-sub, .hero-bio { margin-left: auto; margin-right: auto; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .img-strip { grid-template-columns: repeat(3, 1fr); }
+    #lightbox-prev { left: -.5rem; }
+    #lightbox-next { right: -.5rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     .fade-in { opacity: 1; transform: none; transition: none; }
@@ -174,10 +240,22 @@
 </head>
 <body>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div id="lightbox-inner">
+    <button id="lightbox-close" aria-label="Close">✕</button>
+    <button id="lightbox-prev" aria-label="Previous image">‹</button>
+    <img id="lightbox-img" src="" alt="">
+    <button id="lightbox-next" aria-label="Next image">›</button>
+    <div id="lightbox-caption"></div>
+  </div>
+</div>
+
 <nav>
   <a href="#home" class="nav-logo">Muhammad Ali<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -202,9 +280,8 @@
     </div>
     <div class="hero-image">
       <div class="headshot-wrap">
-        <div class="headshot-box">
-          <!-- REPLACE src below with your actual headshot image path -->
-          <!-- <img src="images/headshot.jpg" alt="Muhammad Ali"> -->
+        <div class="headshot-box" data-lightbox-src="images/headshot.jpg" data-lightbox-caption="Muhammad Ali — Marketing Specialist">
+          <!-- Add your headshot: <img src="images/headshot.jpg" alt="Muhammad Ali"> -->
           <div class="fallback">
             <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
             <span style="font-size:.8rem">Muhammad Ali</span>
@@ -241,6 +318,232 @@
   </div>
 </section>
 
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="fade-in">
+      <p class="section-label">What I Offer</p>
+      <h2>Services</h2>
+      <div class="divider"></div>
+    </div>
+    <p class="services-intro fade-in">From large-scale event production to digital brand building, I offer end-to-end marketing solutions across six core practice areas — each designed to deliver measurable impact for your brand.</p>
+
+    <div class="svc-categories">
+
+      <!-- 1. PR & Influencer -->
+      <div class="svc-category fade-in">
+        <div class="svc-cat-header">
+          <div class="svc-cat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <div class="svc-cat-title">PR & Influencer Services</div>
+            <div class="svc-cat-sub">Your Story. Amplified. Your Brand. Remembered.</div>
+          </div>
+        </div>
+        <div class="svc-items">
+          <div class="svc-item">
+            <div class="svc-item-name">Influencer Marketing</div>
+            <div class="svc-item-desc">Connect with the right influencers to amplify reach, build trust, and drive authentic engagement for your brand.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Media Relations & PR</div>
+            <div class="svc-item-desc">Strategic press placements, media outreach, and brand storytelling that keep you in the spotlight.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Brand Partnerships</div>
+            <div class="svc-item-desc">Identifying and managing high-value brand collaborations that align with your audience and business goals.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Celebrity Endorsements</div>
+            <div class="svc-item-desc">Securing and managing celebrity tie-ups to elevate brand credibility and visibility across platforms.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Artist Management -->
+      <div class="svc-category fade-in">
+        <div class="svc-cat-header">
+          <div class="svc-cat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          </div>
+          <div>
+            <div class="svc-cat-title">Artist Management Services</div>
+            <div class="svc-cat-sub">We Manage Talents. You Celebrate Success.</div>
+          </div>
+        </div>
+        <div class="svc-items">
+          <div class="svc-item">
+            <div class="svc-item-name">Career Management</div>
+            <div class="svc-item-desc">Strategic planning and long-term career roadmapping for sustainable growth in the industry.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Bookings & Events</div>
+            <div class="svc-item-desc">Gigs, tours, and performances handled professionally — end to end.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Branding & Promotions</div>
+            <div class="svc-item-desc">Build your personal brand and reach the right audience with targeted promotional campaigns.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Public Relations</div>
+            <div class="svc-item-desc">Media connections and press management to keep your name in the right conversations.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Social Media Management</div>
+            <div class="svc-item-desc">Grow your presence, engage your fans, and maintain a consistent digital identity.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Contracts & Negotiations</div>
+            <div class="svc-item-desc">Best deals. Strong partnerships. Maximum value — handled with precision.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Revenue Management</div>
+            <div class="svc-item-desc">Monetize your talent and maximize earnings across all available revenue streams.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Digital Marketing -->
+      <div class="svc-category fade-in">
+        <div class="svc-cat-header">
+          <div class="svc-cat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div>
+            <div class="svc-cat-title">Digital Marketing</div>
+            <div class="svc-cat-sub">SM Campaigns · SEO · Paid Ads · Social Media Optimization</div>
+          </div>
+        </div>
+        <div class="svc-items">
+          <div class="svc-item">
+            <div class="svc-item-name">Social Media Campaigns</div>
+            <div class="svc-item-desc">Data-driven SM campaigns across Meta, TikTok, and LinkedIn that convert followers into customers.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Search Engine Optimization</div>
+            <div class="svc-item-desc">Keyword research, on-page optimization, and content strategy to boost your organic visibility.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Social Media Marketing & Optimization</div>
+            <div class="svc-item-desc">Growing your social channels through organic strategy, community management, and SMO best practices.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Paid Advertisements</div>
+            <div class="svc-item-desc">Meta Ads, Google Ads, and display advertising managed for maximum ROI and audience acquisition.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">SM Applications</div>
+            <div class="svc-item-desc">Custom social media app integrations and tools to streamline publishing and audience engagement.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Events & Activations -->
+      <div class="svc-category fade-in">
+        <div class="svc-cat-header">
+          <div class="svc-cat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <div class="svc-cat-title">Commercial & Corporate Events · Mall Events</div>
+            <div class="svc-cat-sub">Brand Launches · Concerts · Activations · OOH</div>
+          </div>
+        </div>
+        <div class="svc-items">
+          <div class="svc-item">
+            <div class="svc-item-name">Corporate Events</div>
+            <div class="svc-item-desc">End-to-end planning and execution of conferences, product launches, and corporate functions.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Mall Events & Brand Activations</div>
+            <div class="svc-item-desc">High-footfall in-mall activations, experiential pop-ups, and consumer engagement events.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Concerts & Entertainment</div>
+            <div class="svc-item-desc">Large-scale concert production, artist coordination, logistics, and on-ground management.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Branding / Activation & OOH</div>
+            <div class="svc-item-desc">Out-of-home advertising, billboard campaigns, and immersive brand activations in high-traffic locations.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Mall Management & Leasing -->
+      <div class="svc-category fade-in">
+        <div class="svc-cat-header">
+          <div class="svc-cat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-8l-2 4h12z"/></svg>
+          </div>
+          <div>
+            <div class="svc-cat-title">Mall Management, Marketing & Leasing</div>
+            <div class="svc-cat-sub">Occupancy Optimization · Tenant Relations · Retail Strategy</div>
+          </div>
+        </div>
+        <div class="svc-items">
+          <div class="svc-item">
+            <div class="svc-item-name">Commercial Leasing</div>
+            <div class="svc-item-desc">Full-cycle leasing management — market analysis, competitive pricing, tenant outreach, and contract negotiation.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Mall Marketing Strategy</div>
+            <div class="svc-item-desc">Annual and seasonal campaigns, promotional calendars, and footfall-driving initiatives tailored for retail environments.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Tenant Mix Optimization</div>
+            <div class="svc-item-desc">Strategic curation of retail tenants to maximize mall revenue, visitor experience, and brand diversity.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">B2B Brand Partnerships</div>
+            <div class="svc-item-desc">Building strategic relationships between malls and brands for co-promotional campaigns and activation partnerships.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Creative Solutions -->
+      <div class="svc-category fade-in">
+        <div class="svc-cat-header">
+          <div class="svc-cat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </div>
+          <div>
+            <div class="svc-cat-title">Creative Solutions & Commercials</div>
+            <div class="svc-cat-sub">Website Design · Logo & Branding · Brand Still Shoots · Promo Production</div>
+          </div>
+        </div>
+        <div class="svc-items">
+          <div class="svc-item">
+            <div class="svc-item-name">Website Designing</div>
+            <div class="svc-item-desc">Clean, conversion-focused websites that reflect your brand and perform across all devices.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Logo & Branding</div>
+            <div class="svc-item-desc">Visual identity systems — logos, color palettes, typography — built to make your brand unmistakable.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Merchandise Design</div>
+            <div class="svc-item-desc">On-brand merchandise and print collateral designed for maximum impact at events and retail.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Publication & Artwork Design</div>
+            <div class="svc-item-desc">Editorial layouts, marketing materials, and artwork for both digital and print publication.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Commercials & Brand Still Shoots</div>
+            <div class="svc-item-desc">Directing and producing commercial video content and professional still photography for brand campaigns.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Promo Production</div>
+            <div class="svc-item-desc">Short-form promotional content — reels, trailers, teasers — crafted for social media and broadcast.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="section-inner">
@@ -263,13 +566,13 @@
             <li>Spearheaded comprehensive marketing strategies and managed 360-solution campaigns for high-profile clients including ICC, Diners, J., Signature Mall UK, Igloo & more.</li>
             <li>Successfully planned and executed over 20 large-scale corporate and public events, ensuring high-quality brand representation across all platforms.</li>
           </ul>
-          <!-- REPLACE src values with your actual image paths e.g. src="images/kolachi-1.jpg" -->
-          <div class="img-strip">
-            <div class="img-strip-cell"><img src="images/kolachi-1.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/kolachi-2.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/kolachi-3.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/kolachi-4.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/kolachi-5.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+          <!-- To add images: set src="images/kolachi-1.jpg" etc. Images will open in lightbox on click. -->
+          <div class="img-strip" data-gallery="Kolachi Events & Marketing">
+            <div class="img-strip-cell"><img src="images/kolachi-1.jpg" alt="Kolachi 1" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove();this.closest('.img-strip-cell')&&(this.closest('.img-strip-cell').innerHTML='<span>Photo</span>')"></div>
+            <div class="img-strip-cell"><img src="images/kolachi-2.jpg" alt="Kolachi 2" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/kolachi-3.jpg" alt="Kolachi 3" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/kolachi-4.jpg" alt="Kolachi 4" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/kolachi-5.jpg" alt="Kolachi 5" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
           </div>
         </div>
       </div>
@@ -289,12 +592,12 @@
             <li>Drove SEO strategy and content execution to improve organic visibility, product page rankings, and inbound lead generation.</li>
             <li>Managed PR and partnerships with actors and influencers to promote the brand and amplify product awareness.</li>
           </ul>
-          <div class="img-strip">
-            <div class="img-strip-cell"><img src="images/melo-1.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/melo-2.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/melo-3.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/melo-4.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/melo-5.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+          <div class="img-strip" data-gallery="Melo by Imran Abbas">
+            <div class="img-strip-cell"><img src="images/melo-1.jpg" alt="Melo 1" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/melo-2.jpg" alt="Melo 2" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/melo-3.jpg" alt="Melo 3" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/melo-4.jpg" alt="Melo 4" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/melo-5.jpg" alt="Melo 5" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
           </div>
         </div>
       </div>
@@ -312,12 +615,12 @@
             <li>Negotiated lease terms, prepared contracts, and ensured high occupancy rates through proactive outreach and client relationship management.</li>
             <li>Conducted market analysis to establish competitive rental rates and optimize the mall's tenant mix.</li>
           </ul>
-          <div class="img-strip">
-            <div class="img-strip-cell"><img src="images/megamall-1.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/megamall-2.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/megamall-3.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/megamall-4.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/megamall-5.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+          <div class="img-strip" data-gallery="Mega Mall">
+            <div class="img-strip-cell"><img src="images/megamall-1.jpg" alt="Mega Mall 1" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/megamall-2.jpg" alt="Mega Mall 2" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/megamall-3.jpg" alt="Mega Mall 3" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/megamall-4.jpg" alt="Mega Mall 4" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/megamall-5.jpg" alt="Mega Mall 5" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
           </div>
         </div>
       </div>
@@ -335,12 +638,12 @@
             <li>Supported the successful execution of multiple large-scale promotional events, including logistics, vendor management, and on-site coordination.</li>
             <li>Coordinated daily marketing communications, including social media and website updates.</li>
           </ul>
-          <div class="img-strip">
-            <div class="img-strip-cell"><img src="images/squareone-1.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/squareone-2.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/squareone-3.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/squareone-4.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/squareone-5.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+          <div class="img-strip" data-gallery="Square One Mall">
+            <div class="img-strip-cell"><img src="images/squareone-1.jpg" alt="Square One 1" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/squareone-2.jpg" alt="Square One 2" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/squareone-3.jpg" alt="Square One 3" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/squareone-4.jpg" alt="Square One 4" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/squareone-5.jpg" alt="Square One 5" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
           </div>
         </div>
       </div>
@@ -358,12 +661,12 @@
             <li>Developed and executed annual and seasonal campaigns that increased mall foot traffic during peak periods.</li>
             <li>Managed a six-figure marketing budget and oversaw partnerships with various brands.</li>
           </ul>
-          <div class="img-strip">
-            <div class="img-strip-cell"><img src="images/atrium-1.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/atrium-2.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/atrium-3.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/atrium-4.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
-            <div class="img-strip-cell"><img src="images/atrium-5.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+          <div class="img-strip" data-gallery="Atrium Mall">
+            <div class="img-strip-cell"><img src="images/atrium-1.jpg" alt="Atrium 1" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/atrium-2.jpg" alt="Atrium 2" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/atrium-3.jpg" alt="Atrium 3" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/atrium-4.jpg" alt="Atrium 4" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
+            <div class="img-strip-cell"><img src="images/atrium-5.jpg" alt="Atrium 5" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
           </div>
         </div>
       </div>
@@ -382,11 +685,9 @@
     </div>
     <div class="projects-grid">
 
-      <!-- Project 01 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-icc.jpg" data-lightbox-caption="ICC Champions Trophy 2025">
           <span class="project-num">01</span>
-          <!-- REPLACE src: src="images/proj-icc.jpg" -->
           <img class="project-thumb" src="images/proj-icc.jpg" alt="ICC Champions Trophy" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M12 2L2 7l10 5 10-5-10-5z\'/><path d=\'M2 17l10 5 10-5\'/><path d=\'M2 12l10 5 10-5\'/></svg><span class=project-num>01</span>'">
         </div>
         <div class="project-body">
@@ -396,9 +697,8 @@
         </div>
       </div>
 
-      <!-- Project 02 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-diners.jpg" data-lightbox-caption="Diners Brand Activation">
           <span class="project-num">02</span>
           <img class="project-thumb" src="images/proj-diners.jpg" alt="Diners Brand Activation" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><rect x=2 y=3 width=20 height=14 rx=2/><path d=\'M8 21h8M12 17v4\'/></svg><span class=project-num>02</span>'">
         </div>
@@ -409,9 +709,8 @@
         </div>
       </div>
 
-      <!-- Project 03 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-melo.jpg" data-lightbox-caption="Melo E-Commerce Launch">
           <span class="project-num">03</span>
           <img class="project-thumb" src="images/proj-melo.jpg" alt="Melo E-Commerce Launch" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><circle cx=8 cy=21 r=1/><circle cx=19 cy=21 r=1/><path d=\'M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12\'/></svg><span class=project-num>03</span>'">
         </div>
@@ -422,9 +721,8 @@
         </div>
       </div>
 
-      <!-- Project 04 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-igloo.jpg" data-lightbox-caption="Igloo Seasonal Campaign">
           <span class="project-num">04</span>
           <img class="project-thumb" src="images/proj-igloo.jpg" alt="Igloo Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'/><polyline points=\'9 22 9 12 15 12 15 22\'/></svg><span class=project-num>04</span>'">
         </div>
@@ -435,9 +733,8 @@
         </div>
       </div>
 
-      <!-- Project 05 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-atrium.jpg" data-lightbox-caption="Atrium Mall Annual Campaign">
           <span class="project-num">05</span>
           <img class="project-thumb" src="images/proj-atrium.jpg" alt="Atrium Mall Annual Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><rect x=2 y=7 width=20 height=14 rx=2/><path d=\'M16 3h-8l-2 4h12z\'/></svg><span class=project-num>05</span>'">
         </div>
@@ -448,9 +745,8 @@
         </div>
       </div>
 
-      <!-- Project 06 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-j.jpg" data-lightbox-caption="J. Fashion 360° Campaign">
           <span class="project-num">06</span>
           <img class="project-thumb" src="images/proj-j.jpg" alt="J. Fashion Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z\'/></svg><span class=project-num>06</span>'">
         </div>
@@ -461,9 +757,8 @@
         </div>
       </div>
 
-      <!-- Project 07 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-squareone.jpg" data-lightbox-caption="Square One Mall Events Series">
           <span class="project-num">07</span>
           <img class="project-thumb" src="images/proj-squareone.jpg" alt="Square One Mall Events" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><polygon points=\'12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\'/></svg><span class=project-num>07</span>'">
         </div>
@@ -474,9 +769,8 @@
         </div>
       </div>
 
-      <!-- Project 08 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-signature.jpg" data-lightbox-caption="Signature Mall UK Partnership">
           <span class="project-num">08</span>
           <img class="project-thumb" src="images/proj-signature.jpg" alt="Signature Mall UK" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><circle cx=12 cy=12 r=10/><line x1=2 y1=12 x2=22 y2=12/><path d=\'M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\'/></svg><span class=project-num>08</span>'">
         </div>
@@ -487,9 +781,8 @@
         </div>
       </div>
 
-      <!-- Project 09 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-megamall.jpg" data-lightbox-caption="Mega Mall Leasing Strategy">
           <span class="project-num">09</span>
           <img class="project-thumb" src="images/proj-megamall.jpg" alt="Mega Mall Leasing Strategy" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\'/><circle cx=12 cy=10 r=3/></svg><span class=project-num>09</span>'">
         </div>
@@ -500,9 +793,8 @@
         </div>
       </div>
 
-      <!-- Project 10 -->
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-seo.jpg" data-lightbox-caption="SEO & Content Growth Strategy">
           <span class="project-num">10</span>
           <img class="project-thumb" src="images/proj-seo.jpg" alt="SEO & Content Strategy" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><circle cx=11 cy=11 r=8/><line x1=21 y1=21 x2=16.65 y2=16.65/></svg><span class=project-num>10</span>'">
         </div>
@@ -582,29 +874,24 @@
       <div class="contact-info">
         <p>Ready to elevate your brand? Whether it's a large-scale event, a performance marketing campaign, or a full brand overhaul — let's talk strategy.</p>
         <div class="contact-links">
-
           <a href="mailto:hello@muhammadali.com" class="contact-link">
             <div class="contact-link-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
             hello@muhammadali.com
           </a>
-
-          <!-- REPLACE the number in href with your actual WhatsApp number (country code + number, no +) -->
           <a href="https://wa.me/923001234567" target="_blank" class="contact-link">
             <div class="contact-link-icon wa">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
             </div>
             +92 300 123 4567
           </a>
-
           <a href="https://linkedin.com/in/muhammadali" target="_blank" class="contact-link">
             <div class="contact-link-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             </div>
             linkedin.com/in/muhammadali
           </a>
-
         </div>
       </div>
       <div class="contact-form">
@@ -630,6 +917,7 @@
 </footer>
 
 <script>
+/* ─── PARTICLES ─── */
 (function(){
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
@@ -641,6 +929,7 @@
   draw();
 })();
 
+/* ─── SCROLL ANIMATIONS ─── */
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -652,6 +941,86 @@ const observer = new IntersectionObserver((entries)=>{
   });
 },{threshold:.15});
 document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+/* ─── LIGHTBOX ─── */
+const lb        = document.getElementById('lightbox');
+const lbImg     = document.getElementById('lightbox-img');
+const lbCaption = document.getElementById('lightbox-caption');
+const lbClose   = document.getElementById('lightbox-close');
+const lbPrev    = document.getElementById('lightbox-prev');
+const lbNext    = document.getElementById('lightbox-next');
+
+let gallery = [];   // [{src, caption}]
+let gIndex  = 0;
+
+function openLightbox(items, startIndex) {
+  gallery  = items;
+  gIndex   = startIndex;
+  showSlide(gIndex);
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+  gallery = [];
+}
+
+function showSlide(i) {
+  lbImg.src         = gallery[i].src;
+  lbImg.alt         = gallery[i].caption;
+  lbCaption.textContent = gallery[i].caption;
+  lbPrev.classList.toggle('hidden', i === 0);
+  lbNext.classList.toggle('hidden', i === gallery.length - 1);
+}
+
+lbClose.addEventListener('click', closeLightbox);
+lbPrev.addEventListener('click', () => { if(gIndex > 0){ gIndex--; showSlide(gIndex); } });
+lbNext.addEventListener('click', () => { if(gIndex < gallery.length-1){ gIndex++; showSlide(gIndex); } });
+
+lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
+
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft'  && gIndex > 0)              { gIndex--; showSlide(gIndex); }
+  if(e.key === 'ArrowRight' && gIndex < gallery.length-1){ gIndex++; showSlide(gIndex); }
+});
+
+/* Strip cells — group images per strip for prev/next navigation */
+document.querySelectorAll('.img-strip').forEach(strip => {
+  const caption = strip.dataset.gallery || '';
+  const cells   = Array.from(strip.querySelectorAll('.img-strip-cell:not(.empty)'));
+  const items   = cells.map(cell => {
+    const img = cell.querySelector('img');
+    return { src: img ? img.src : '', caption };
+  }).filter(it => it.src);
+
+  cells.forEach((cell, idx) => {
+    cell.addEventListener('click', () => {
+      if(items[idx]) openLightbox(items, idx);
+    });
+  });
+});
+
+/* Project thumbnails — single image lightbox */
+document.querySelectorAll('.project-thumb-wrap:not(.no-img)').forEach(wrap => {
+  const src     = wrap.dataset.lightboxSrc;
+  const caption = wrap.dataset.lightboxCaption || '';
+  if(!src) return;
+  wrap.addEventListener('click', () => openLightbox([{src, caption}], 0));
+});
+
+/* Headshot */
+const headshot = document.querySelector('.headshot-box[data-lightbox-src]');
+if(headshot) {
+  headshot.addEventListener('click', () => {
+    const src     = headshot.dataset.lightboxSrc;
+    const caption = headshot.dataset.lightboxCaption || '';
+    if(src) openLightbox([{src, caption}], 0);
+  });
+}
 </script>
 </body>
 </html>
