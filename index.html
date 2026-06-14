@@ -7,462 +7,173 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #0a0a0a;
-    --card: #1a1a1a;
-    --purple: #8A2BE2;
-    --purple-glow: rgba(138, 43, 226, 0.35);
-    --purple-dim: rgba(138, 43, 226, 0.12);
-    --white: #F8F8FF;
-    --muted: rgba(248,248,255,0.5);
-    --border: rgba(138, 43, 226, 0.2);
+    --bg: #0a0a0a; --card: #1a1a1a; --purple: #8A2BE2;
+    --purple-glow: rgba(138,43,226,0.35); --purple-dim: rgba(138,43,226,0.12);
+    --white: #F8F8FF; --muted: rgba(248,248,255,0.5); --border: rgba(138,43,226,0.2);
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-    line-height: 1.6;
-  }
-
-  /* ── SCROLLBAR ── */
+  body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.6; }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
 
-  /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.1rem 5%;
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 5%; background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(18px); border-bottom: 1px solid var(--border);
   }
-  .nav-logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700; font-size: 1.15rem; letter-spacing: .06em;
-    color: var(--white); text-decoration: none;
-  }
+  .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; letter-spacing: .06em; color: var(--white); text-decoration: none; }
   .nav-logo span { color: var(--purple); }
   .nav-links { display: flex; gap: 2.2rem; list-style: none; }
-  .nav-links a {
-    color: var(--muted); text-decoration: none;
-    font-size: .88rem; letter-spacing: .05em;
-    transition: color .25s;
-  }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: .88rem; letter-spacing: .05em; transition: color .25s; }
   .nav-links a:hover { color: var(--white); }
-  .nav-cta {
-    background: transparent; border: 1px solid var(--purple);
-    color: var(--purple); padding: .45rem 1.2rem; border-radius: 6px;
-    font-family: 'Inter', sans-serif; font-size: .85rem; cursor: pointer;
-    transition: all .25s; text-decoration: none;
-  }
+  .nav-cta { background: transparent; border: 1px solid var(--purple); color: var(--purple); padding: .45rem 1.2rem; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: .85rem; cursor: pointer; transition: all .25s; text-decoration: none; }
   .nav-cta:hover { background: var(--purple); color: var(--white); box-shadow: 0 0 18px var(--purple-glow); }
 
-  /* ── HERO ── */
-  #home {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    position: relative; overflow: hidden;
-    padding: 7rem 5% 4rem;
-  }
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background: radial-gradient(ellipse 70% 60% at 70% 40%, rgba(138,43,226,.18) 0%, transparent 65%),
-                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(138,43,226,.08) 0%, transparent 60%);
-    animation: bgPulse 8s ease-in-out infinite alternate;
-  }
-  @keyframes bgPulse {
-    from { opacity: .7; }
-    to   { opacity: 1; }
-  }
-
-  /* Particle canvas */
+  #home { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding: 7rem 5% 4rem; }
+  .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 70% 40%, rgba(138,43,226,.18) 0%, transparent 65%), radial-gradient(ellipse 40% 40% at 20% 80%, rgba(138,43,226,.08) 0%, transparent 60%); animation: bgPulse 8s ease-in-out infinite alternate; }
+  @keyframes bgPulse { from{opacity:.7} to{opacity:1} }
   #particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-
-  .hero-inner {
-    position: relative; z-index: 2;
-    display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center;
-    max-width: 1200px; margin: 0 auto; width: 100%;
-  }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: .5rem;
-    background: var(--purple-dim); border: 1px solid var(--border);
-    border-radius: 100px; padding: .3rem .85rem;
-    font-size: .78rem; letter-spacing: .1em; color: var(--purple);
-    text-transform: uppercase; margin-bottom: 1.5rem;
-  }
+  .hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; }
+  .hero-tag { display: inline-flex; align-items: center; gap: .5rem; background: var(--purple-dim); border: 1px solid var(--border); border-radius: 100px; padding: .3rem .85rem; font-size: .78rem; letter-spacing: .1em; color: var(--purple); text-transform: uppercase; margin-bottom: 1.5rem; }
   .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: blink 1.4s ease-in-out infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-  h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(2.4rem, 5vw, 4rem);
-    font-weight: 700; line-height: 1.1; letter-spacing: -.02em;
-    margin-bottom: 1.2rem;
-  }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; letter-spacing: -.02em; margin-bottom: 1.2rem; }
   h1 em { font-style: normal; color: var(--purple); }
-  .hero-sub {
-    font-size: 1.05rem; color: var(--muted); max-width: 480px;
-    margin-bottom: 1.4rem; line-height: 1.7;
-  }
-  .hero-bio {
-    font-size: .92rem; color: rgba(248,248,255,.65);
-    max-width: 500px; margin-bottom: 2.2rem; line-height: 1.75;
-  }
+  .hero-sub { font-size: 1.05rem; color: var(--muted); max-width: 480px; margin-bottom: 1.4rem; line-height: 1.7; }
+  .hero-bio { font-size: .92rem; color: rgba(248,248,255,.65); max-width: 500px; margin-bottom: 2.2rem; line-height: 1.75; }
   .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--purple); color: var(--white);
-    border: none; padding: .75rem 1.8rem; border-radius: 8px;
-    font-family: 'Inter', sans-serif; font-size: .92rem; font-weight: 500;
-    cursor: pointer; text-decoration: none;
-    transition: all .25s;
-    box-shadow: 0 0 0 0 var(--purple-glow);
-  }
+  .btn-primary { background: var(--purple); color: var(--white); border: none; padding: .75rem 1.8rem; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: .92rem; font-weight: 500; cursor: pointer; text-decoration: none; transition: all .25s; }
   .btn-primary:hover { box-shadow: 0 0 28px var(--purple-glow); transform: translateY(-2px); }
-  .btn-outline {
-    background: transparent; border: 1px solid rgba(248,248,255,.25);
-    color: var(--white); padding: .75rem 1.8rem; border-radius: 8px;
-    font-family: 'Inter', sans-serif; font-size: .92rem;
-    cursor: pointer; text-decoration: none; transition: all .25s;
-  }
+  .btn-outline { background: transparent; border: 1px solid rgba(248,248,255,.25); color: var(--white); padding: .75rem 1.8rem; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: .92rem; cursor: pointer; text-decoration: none; transition: all .25s; }
   .btn-outline:hover { border-color: var(--purple); color: var(--purple); }
+  .hero-image { display: flex; justify-content: center; align-items: center; position: relative; }
+  .headshot-wrap { width: 340px; height: 400px; position: relative; }
+  .headshot-box { width: 100%; height: 100%; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); position: relative; background: #111; }
+  .headshot-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* If no real image, show fallback */
+  .headshot-box .fallback { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8rem; color: var(--muted); font-size: .85rem; }
+  .headshot-box .fallback svg { opacity: .4; }
+  .headshot-box::before { content: ''; position: absolute; inset: -1px; border-radius: 20px; background: linear-gradient(135deg, var(--purple), transparent 60%); z-index: -1; opacity: .5; }
+  .headshot-glow { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); width: 200px; height: 60px; background: var(--purple); filter: blur(50px); opacity: .35; pointer-events: none; }
 
-  /* Headshot */
-  .hero-image {
-    display: flex; justify-content: center; align-items: center;
-    position: relative;
-  }
-  .headshot-wrap {
-    width: 340px; height: 400px; position: relative;
-  }
-  .headshot-placeholder {
-    width: 100%; height: 100%;
-    border-radius: 20px;
-    background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
-    border: 1px solid var(--border);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: .8rem;
-    color: var(--muted); font-size: .85rem;
-    position: relative; overflow: hidden;
-  }
-  .headshot-placeholder::before {
-    content: '';
-    position: absolute; inset: -1px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, var(--purple), transparent 60%);
-    z-index: -1; opacity: .5;
-  }
-  .headshot-placeholder svg { opacity: .4; }
-  .headshot-glow {
-    position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
-    width: 200px; height: 60px;
-    background: var(--purple); filter: blur(50px); opacity: .35;
-    pointer-events: none;
-  }
-
-  /* ── SECTION BASE ── */
   section { padding: 6rem 5%; }
   .section-inner { max-width: 1200px; margin: 0 auto; }
-  .section-label {
-    font-size: .75rem; letter-spacing: .18em; color: var(--purple);
-    text-transform: uppercase; margin-bottom: .6rem;
-  }
-  h2 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    font-weight: 700; letter-spacing: -.02em; margin-bottom: 1.2rem;
-  }
+  .section-label { font-size: .75rem; letter-spacing: .18em; color: var(--purple); text-transform: uppercase; margin-bottom: .6rem; }
+  h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: 1.2rem; }
   .divider { width: 48px; height: 2px; background: var(--purple); margin-bottom: 2.5rem; border-radius: 2px; }
-
-  /* Fade-in on scroll */
   .fade-in { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
   .fade-in.visible { opacity: 1; transform: none; }
 
-  /* ── ABOUT ── */
   #about { background: var(--bg); }
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
-  }
-  .glass-card {
-    background: rgba(26,26,26,.7);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--border);
-    border-radius: 20px; padding: 2.2rem;
-  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .glass-card { background: rgba(26,26,26,.7); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 20px; padding: 2.2rem; }
   .about-text { color: rgba(248,248,255,.72); font-size: .96rem; line-height: 1.85; }
-  .about-stats {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-    margin-top: 2rem;
-  }
-  .stat-box {
-    background: var(--purple-dim); border: 1px solid var(--border);
-    border-radius: 14px; padding: 1.3rem;
-  }
-  .stat-num {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 2rem; font-weight: 700; color: var(--purple);
-  }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  .stat-box { background: var(--purple-dim); border: 1px solid var(--border); border-radius: 14px; padding: 1.3rem; }
+  .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--purple); }
   .stat-label { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
 
-  /* ── EXPERIENCE (Timeline) ── */
   #experience { background: #0d0d0d; }
   .timeline { position: relative; padding-left: 2.5rem; }
-  .timeline::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 2px; background: linear-gradient(to bottom, var(--purple), transparent);
-  }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--purple), transparent); }
   .tl-item { position: relative; margin-bottom: 2.5rem; }
-  .tl-dot {
-    position: absolute; left: -2.5rem; top: .3rem;
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--purple); border: 2px solid var(--bg);
-    box-shadow: 0 0 12px var(--purple-glow);
-  }
-  .tl-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 1.6rem 1.8rem;
-    transition: border-color .3s, box-shadow .3s;
-    cursor: default;
-  }
-  .tl-card:hover {
-    border-color: var(--purple);
-    box-shadow: 0 0 24px var(--purple-glow);
-  }
+  .tl-dot { position: absolute; left: -2.5rem; top: .3rem; width: 12px; height: 12px; border-radius: 50%; background: var(--purple); border: 2px solid #0d0d0d; box-shadow: 0 0 12px var(--purple-glow); }
+  .tl-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.6rem 1.8rem; transition: border-color .3s, box-shadow .3s; }
+  .tl-card:hover { border-color: var(--purple); box-shadow: 0 0 24px var(--purple-glow); }
   .tl-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: .5rem; margin-bottom: .8rem; }
   .tl-role { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; }
   .tl-company { color: var(--purple); font-size: .88rem; margin-top: .15rem; }
-  .tl-duration {
-    font-size: .78rem; color: var(--muted);
-    background: var(--purple-dim); border: 1px solid var(--border);
-    padding: .2rem .7rem; border-radius: 100px; white-space: nowrap;
-  }
+  .tl-duration { font-size: .78rem; color: var(--muted); background: var(--purple-dim); border: 1px solid var(--border); padding: .2rem .7rem; border-radius: 100px; white-space: nowrap; }
   .tl-body { color: rgba(248,248,255,.65); font-size: .9rem; line-height: 1.7; }
-  .tl-list {
-    list-style: none; padding: 0; margin: 0;
-    display: flex; flex-direction: column; gap: .55rem;
-  }
-  .tl-list li {
-    padding-left: 1.2rem; position: relative;
-  }
-  .tl-list li::before {
-    content: '✦'; position: absolute; left: 0;
-    color: var(--purple); font-size: .65rem; top: .28rem;
-  }
-  .tl-achievement {
-    margin-top: .9rem; padding: .7rem 1rem;
-    background: var(--purple-dim); border-left: 2px solid var(--purple);
-    border-radius: 0 8px 8px 0; font-size: .85rem; color: rgba(248,248,255,.8);
-  }
-  /* IMAGE UPLOAD GRID */
-  .img-upload-section { margin-top: 1.2rem; }
-  .img-upload-label {
-    font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--purple); margin-bottom: .6rem; display: block;
-  }
-  .img-upload-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: .5rem;
-  }
-  .img-slot {
-    aspect-ratio: 1;
-    border-radius: 10px;
-    background: rgba(255,255,255,.03);
-    border: 1px dashed rgba(138,43,226,.3);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: .3rem; cursor: pointer; position: relative;
-    overflow: hidden; transition: border-color .25s, background .25s;
-  }
-  .img-slot:hover { border-color: var(--purple); background: var(--purple-dim); }
-  .img-slot input[type=file] {
-    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-  }
-  .img-slot-icon { color: rgba(138,43,226,.5); pointer-events: none; flex-shrink: 0; }
-  .img-slot-text { font-size: .58rem; color: var(--muted); pointer-events: none; text-align: center; line-height: 1.3; padding: 0 4px; }
-  .img-slot img.preview {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; border-radius: 9px; display: none;
-  }
-  .img-slot.has-image .img-slot-icon,
-  .img-slot.has-image .img-slot-text { display: none; }
-  .img-slot.has-image img.preview { display: block; }
-  .img-slot .remove-btn {
-    position: absolute; top: 3px; right: 3px; z-index: 3;
-    background: rgba(10,10,10,.85); border: 1px solid rgba(255,255,255,.2);
-    color: var(--white); border-radius: 50%; width: 20px; height: 20px;
-    display: none; align-items: center; justify-content: center;
-    cursor: pointer; font-size: .75rem; line-height: 1;
-  }
-  .img-slot.has-image:hover .remove-btn { display: flex; }
-  @media (max-width: 600px) {
-    .img-upload-grid { grid-template-columns: repeat(3, 1fr); }
-  }
+  .tl-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .55rem; }
+  .tl-list li { padding-left: 1.2rem; position: relative; }
+  .tl-list li::before { content: '✦'; position: absolute; left: 0; color: var(--purple); font-size: .65rem; top: .28rem; }
 
-  /* ── PROJECTS ── */
+  /* IMAGE STRIP — 5 fixed images per section */
+  .img-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: .6rem; margin-top: 1.2rem; }
+  .img-strip-cell { aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #111; border: 1px solid rgba(138,43,226,.2); }
+  .img-strip-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+  .img-strip-cell:hover img { transform: scale(1.08); }
+  /* placeholder when no image */
+  .img-strip-cell.empty { display: flex; align-items: center; justify-content: center; background: rgba(138,43,226,.05); border: 1px dashed rgba(138,43,226,.2); }
+  .img-strip-cell.empty span { font-size: .6rem; color: rgba(138,43,226,.3); letter-spacing: .05em; }
+
+  /* PROJECTS */
   #projects { background: var(--bg); }
   .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-  .project-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 18px; overflow: hidden;
-    transition: border-color .3s, box-shadow .3s, transform .3s;
-    cursor: default;
-  }
-  .project-card:hover {
-    border-color: var(--purple);
-    box-shadow: 0 0 36px var(--purple-glow);
-    transform: translateY(-4px);
-  }
-  .project-img {
-    height: 200px; background: linear-gradient(135deg, #1a1a1a, #111);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: .6rem; color: var(--muted); font-size: .82rem;
-    border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
-    transition: transform .3s;
-  }
-  .project-card:hover .project-img { transform: scale(1.05); }
-  .project-img-inner { display: flex; flex-direction: column; align-items: center; gap: .6rem; }
-  .project-num {
-    position: absolute; top: 1rem; left: 1rem;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: .7rem; letter-spacing: .15em; color: var(--purple);
-    background: var(--purple-dim); border: 1px solid var(--border);
-    padding: .2rem .6rem; border-radius: 100px;
-  }
+  .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color .3s, box-shadow .3s, transform .3s; }
+  .project-card:hover { border-color: var(--purple); box-shadow: 0 0 36px var(--purple-glow); transform: translateY(-4px); }
+  .project-thumb { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform .35s; }
+  .project-card:hover .project-thumb { transform: scale(1.04); }
+  .project-thumb-wrap { overflow: hidden; position: relative; height: 200px; background: #111; }
+  /* placeholder gradient for projects without image */
+  .project-thumb-wrap.no-img { display: flex; align-items: center; justify-content: center; }
+  .project-thumb-wrap .proj-icon { opacity: .12; }
+  .project-num { position: absolute; top: .8rem; left: .8rem; font-family: 'Space Grotesk', sans-serif; font-size: .7rem; letter-spacing: .15em; color: var(--purple); background: rgba(10,10,10,.85); border: 1px solid var(--border); padding: .2rem .6rem; border-radius: 100px; }
   .project-body { padding: 1.5rem 1.6rem; }
   .project-title { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.05rem; margin-bottom: .5rem; }
   .project-desc { color: rgba(248,248,255,.6); font-size: .88rem; line-height: 1.7; }
   .project-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
-  .tag {
-    font-size: .72rem; letter-spacing: .05em;
-    background: var(--purple-dim); border: 1px solid var(--border);
-    color: var(--purple); padding: .2rem .65rem; border-radius: 100px;
-  }
+  .tag { font-size: .72rem; letter-spacing: .05em; background: var(--purple-dim); border: 1px solid var(--border); color: var(--purple); padding: .2rem .65rem; border-radius: 100px; }
 
-  /* ── SKILLS ── */
   #skills { background: #0d0d0d; }
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
-  .skill-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 1.5rem;
-    transition: border-color .3s, box-shadow .3s;
-  }
+  .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; transition: border-color .3s, box-shadow .3s; }
   .skill-card:hover { border-color: var(--purple); box-shadow: 0 0 20px var(--purple-glow); }
   .skill-header { display: flex; align-items: center; gap: .8rem; margin-bottom: 1rem; }
-  .skill-icon {
-    width: 40px; height: 40px; border-radius: 10px;
-    background: var(--purple-dim); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--purple);
-  }
+  .skill-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--purple-dim); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--purple); }
   .skill-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: .95rem; }
   .skill-sub { color: var(--muted); font-size: .78rem; margin-top: .15rem; }
-  .skill-bar-bg {
-    height: 4px; background: rgba(255,255,255,.07); border-radius: 2px; overflow: hidden;
-    margin-bottom: .4rem;
-  }
-  .skill-bar-fill {
-    height: 100%; background: linear-gradient(90deg, var(--purple), #b06ee8);
-    border-radius: 2px; width: 0;
-    transition: width 1.2s cubic-bezier(.4,0,.2,1);
-    box-shadow: 0 0 8px var(--purple-glow);
-  }
+  .skill-bar-bg { height: 4px; background: rgba(255,255,255,.07); border-radius: 2px; overflow: hidden; margin-bottom: .4rem; }
+  .skill-bar-fill { height: 100%; background: linear-gradient(90deg, var(--purple), #b06ee8); border-radius: 2px; width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 8px var(--purple-glow); }
   .skill-pct { font-size: .72rem; color: var(--muted); text-align: right; }
 
-  /* ── CONTACT ── */
   #contact { background: var(--bg); }
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-  .contact-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; }
   .contact-info p { color: var(--muted); font-size: .95rem; line-height: 1.75; margin-bottom: 2rem; }
   .contact-links { display: flex; flex-direction: column; gap: .85rem; }
-  .contact-link {
-    display: flex; align-items: center; gap: .75rem;
-    color: rgba(248,248,255,.7); text-decoration: none; font-size: .9rem;
-    transition: color .2s;
-  }
+  .contact-link { display: flex; align-items: center; gap: .75rem; color: rgba(248,248,255,.7); text-decoration: none; font-size: .9rem; transition: color .2s; }
   .contact-link:hover { color: var(--purple); }
-  .contact-link-icon {
-    width: 36px; height: 36px; border-radius: 9px;
-    background: var(--purple-dim); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center; color: var(--purple);
-    transition: box-shadow .2s;
-  }
+  .contact-link-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--purple-dim); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--purple); flex-shrink: 0; transition: box-shadow .2s; }
   .contact-link:hover .contact-link-icon { box-shadow: 0 0 14px var(--purple-glow); }
-
-  /* Form */
+  .contact-link-icon.wa { background: rgba(37,211,102,.12); border-color: rgba(37,211,102,.3); color: #25D366; }
+  .contact-link:hover .contact-link-icon.wa { box-shadow: 0 0 14px rgba(37,211,102,.4); }
   .contact-form { display: flex; flex-direction: column; gap: 1rem; }
   .form-group { display: flex; flex-direction: column; gap: .4rem; }
   .form-group label { font-size: .8rem; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
-  .form-group input, .form-group textarea {
-    background: #141414; border: 1px solid rgba(255,255,255,.1);
-    border-radius: 10px; padding: .85rem 1rem;
-    color: var(--white); font-family: 'Inter', sans-serif; font-size: .9rem;
-    outline: none; transition: border-color .25s, box-shadow .25s;
-    resize: none;
-  }
-  .form-group input:focus, .form-group textarea:focus {
-    border-color: var(--purple);
-    box-shadow: 0 0 0 3px var(--purple-dim);
-  }
+  .form-group input, .form-group textarea { background: #141414; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; padding: .85rem 1rem; color: var(--white); font-family: 'Inter', sans-serif; font-size: .9rem; outline: none; transition: border-color .25s, box-shadow .25s; resize: none; }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px var(--purple-dim); }
   .form-group textarea { min-height: 130px; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .btn-submit {
-    background: var(--purple); border: none; color: var(--white);
-    padding: .85rem 1.8rem; border-radius: 10px;
-    font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 500;
-    cursor: pointer; transition: all .25s; display: flex; align-items: center; gap: .5rem;
-    align-self: flex-start;
-  }
+  .btn-submit { background: var(--purple); border: none; color: var(--white); padding: .85rem 1.8rem; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: .95rem; font-weight: 500; cursor: pointer; transition: all .25s; display: flex; align-items: center; gap: .5rem; align-self: flex-start; }
   .btn-submit:hover { box-shadow: 0 0 28px var(--purple-glow); transform: translateY(-2px); }
 
-  /* ── FOOTER ── */
-  footer {
-    padding: 2rem 5%; border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-    color: var(--muted); font-size: .82rem;
-  }
+  footer { padding: 2rem 5%; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: var(--muted); font-size: .82rem; }
   footer a { color: var(--muted); text-decoration: none; transition: color .2s; }
   footer a:hover { color: var(--purple); }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .hero-inner {
-      grid-template-columns: 1fr;
-      text-align: center;
-    }
-    .hero-image {
-      display: flex;
-      order: -1;
-      justify-content: center;
-    }
-    .headshot-wrap {
-      width: 200px;
-      height: 240px;
-    }
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-image { order: -1; justify-content: center; }
+    .headshot-wrap { width: 200px; height: 240px; }
     .hero-buttons { justify-content: center; }
     .hero-sub, .hero-bio { margin-left: auto; margin-right: auto; }
-    .hero-tag { display: inline-flex; }
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .nav-links { display: none; }
+    .img-strip { grid-template-columns: repeat(3, 1fr); }
   }
-
   @media (prefers-reduced-motion: reduce) {
     .fade-in { opacity: 1; transform: none; transition: none; }
     .skill-bar-fill { transition: none; }
-    .bgPulse { animation: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#home" class="nav-logo">Muhammad Ali<span>.</span></a>
   <ul class="nav-links">
@@ -491,11 +202,13 @@
     </div>
     <div class="hero-image">
       <div class="headshot-wrap">
-        <div class="headshot-placeholder">
-          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-          </svg>
-          <span style="color:rgba(248,248,255,.3);font-size:.8rem">Upload Headshot</span>
+        <div class="headshot-box">
+          <!-- REPLACE src below with your actual headshot image path -->
+          <!-- <img src="images/headshot.jpg" alt="Muhammad Ali"> -->
+          <div class="fallback">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span style="font-size:.8rem">Muhammad Ali</span>
+          </div>
         </div>
         <div class="headshot-glow"></div>
       </div>
@@ -518,22 +231,10 @@
       </div>
       <div>
         <div class="about-stats">
-          <div class="stat-box fade-in">
-            <div class="stat-num">6+</div>
-            <div class="stat-label">Years of Experience</div>
-          </div>
-          <div class="stat-box fade-in">
-            <div class="stat-num">$10K+</div>
-            <div class="stat-label">Campaign Budgets Managed</div>
-          </div>
-          <div class="stat-box fade-in">
-            <div class="stat-num">5</div>
-            <div class="stat-label">Major Brands Served</div>
-          </div>
-          <div class="stat-box fade-in">
-            <div class="stat-num">3</div>
-            <div class="stat-label">Cities for ICC Operations</div>
-          </div>
+          <div class="stat-box fade-in"><div class="stat-num">6+</div><div class="stat-label">Years of Experience</div></div>
+          <div class="stat-box fade-in"><div class="stat-num">$10K+</div><div class="stat-label">Campaign Budgets Managed</div></div>
+          <div class="stat-box fade-in"><div class="stat-num">5</div><div class="stat-label">Major Brands Served</div></div>
+          <div class="stat-box fade-in"><div class="stat-num">3</div><div class="stat-label">Cities for ICC Operations</div></div>
         </div>
       </div>
     </div>
@@ -550,72 +251,35 @@
     </div>
     <div class="timeline">
 
+      <!-- Kolachi -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
           <div class="tl-header">
-            <div>
-              <div class="tl-role">Marketing Manager</div>
-              <div class="tl-company">Kolachi Events & Marketing</div>
-            </div>
+            <div><div class="tl-role">Marketing Manager</div><div class="tl-company">Kolachi Events & Marketing</div></div>
             <div class="tl-duration">1.8 Years</div>
           </div>
           <ul class="tl-body tl-list">
             <li>Spearheaded comprehensive marketing strategies and managed 360-solution campaigns for high-profile clients including ICC, Diners, J., Signature Mall UK, Igloo & more.</li>
             <li>Successfully planned and executed over 20 large-scale corporate and public events, ensuring high-quality brand representation across all platforms.</li>
           </ul>
-
-          <div class="img-upload-section">
-            <span class="img-upload-label">📷 Kolachi Events — Agency Logos & Event Shots</span>
-            <div class="img-upload-grid">
-          <div class="img-slot" id="slot-kolachi-1">
-            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-1')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 1</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'kolachi-1')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-kolachi-2">
-            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-2')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 2</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'kolachi-2')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-kolachi-3">
-            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-3')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 3</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'kolachi-3')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-kolachi-4">
-            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-4')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 4</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'kolachi-4')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-kolachi-5">
-            <input type="file" accept="image/*" onchange="previewImg(this,'kolachi-5')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 5</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'kolachi-5')">✕</button>
-          </div>
-            </div>
+          <!-- REPLACE src values with your actual image paths e.g. src="images/kolachi-1.jpg" -->
+          <div class="img-strip">
+            <div class="img-strip-cell"><img src="images/kolachi-1.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/kolachi-2.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/kolachi-3.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/kolachi-4.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/kolachi-5.jpg" alt="Kolachi Events" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
           </div>
         </div>
       </div>
 
+      <!-- Melo -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
           <div class="tl-header">
-            <div>
-              <div class="tl-role">Digital Marketing Manager</div>
-              <div class="tl-company">Melo by Imran Abbas</div>
-            </div>
+            <div><div class="tl-role">Digital Marketing Manager</div><div class="tl-company">Melo by Imran Abbas</div></div>
             <div class="tl-duration">1 Year</div>
           </div>
           <ul class="tl-body tl-list">
@@ -623,61 +287,24 @@
             <li>Managed all digital marketing, including setting up and running Meta (Facebook/Instagram) and Google Ads to increase sales and acquire new customers.</li>
             <li>Handled social media accounts, creating and scheduling content to keep followers active and engaged.</li>
             <li>Drove SEO strategy and content execution to improve organic visibility, product page rankings, and inbound lead generation.</li>
-            <li>Visited different sites and events in person to run promotional activities and introduce the product directly to customers.</li>
             <li>Managed PR and partnerships with actors and influencers to promote the brand and amplify product awareness.</li>
           </ul>
-
-          <div class="img-upload-section">
-            <span class="img-upload-label">📷 Melo — Brand Visuals & Campaign Graphics</span>
-            <div class="img-upload-grid">
-          <div class="img-slot" id="slot-melo-1">
-            <input type="file" accept="image/*" onchange="previewImg(this,'melo-1')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 1</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'melo-1')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-melo-2">
-            <input type="file" accept="image/*" onchange="previewImg(this,'melo-2')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 2</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'melo-2')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-melo-3">
-            <input type="file" accept="image/*" onchange="previewImg(this,'melo-3')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 3</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'melo-3')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-melo-4">
-            <input type="file" accept="image/*" onchange="previewImg(this,'melo-4')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 4</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'melo-4')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-melo-5">
-            <input type="file" accept="image/*" onchange="previewImg(this,'melo-5')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 5</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'melo-5')">✕</button>
-          </div>
-            </div>
+          <div class="img-strip">
+            <div class="img-strip-cell"><img src="images/melo-1.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/melo-2.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/melo-3.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/melo-4.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/melo-5.jpg" alt="Melo" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
           </div>
         </div>
       </div>
 
+      <!-- Mega Mall -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
           <div class="tl-header">
-            <div>
-              <div class="tl-role">Marketing Executive</div>
-              <div class="tl-company">Mega Mall</div>
-            </div>
+            <div><div class="tl-role">Marketing Executive</div><div class="tl-company">Mega Mall</div></div>
             <div class="tl-duration">8 Months</div>
           </div>
           <ul class="tl-body tl-list">
@@ -685,58 +312,22 @@
             <li>Negotiated lease terms, prepared contracts, and ensured high occupancy rates through proactive outreach and client relationship management.</li>
             <li>Conducted market analysis to establish competitive rental rates and optimize the mall's tenant mix.</li>
           </ul>
-
-          <div class="img-upload-section">
-            <span class="img-upload-label">📷 Mega Mall — Interiors & Event Shots</span>
-            <div class="img-upload-grid">
-          <div class="img-slot" id="slot-megamall-1">
-            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-1')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 1</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'megamall-1')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-megamall-2">
-            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-2')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 2</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'megamall-2')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-megamall-3">
-            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-3')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 3</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'megamall-3')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-megamall-4">
-            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-4')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 4</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'megamall-4')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-megamall-5">
-            <input type="file" accept="image/*" onchange="previewImg(this,'megamall-5')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 5</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'megamall-5')">✕</button>
-          </div>
-            </div>
+          <div class="img-strip">
+            <div class="img-strip-cell"><img src="images/megamall-1.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/megamall-2.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/megamall-3.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/megamall-4.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/megamall-5.jpg" alt="Mega Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
           </div>
         </div>
       </div>
 
+      <!-- Square One -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
           <div class="tl-header">
-            <div>
-              <div class="tl-role">Marketing Executive</div>
-              <div class="tl-company">Square One Mall</div>
-            </div>
+            <div><div class="tl-role">Marketing Executive</div><div class="tl-company">Square One Mall</div></div>
             <div class="tl-duration">8 Months</div>
           </div>
           <ul class="tl-body tl-list">
@@ -744,58 +335,22 @@
             <li>Supported the successful execution of multiple large-scale promotional events, including logistics, vendor management, and on-site coordination.</li>
             <li>Coordinated daily marketing communications, including social media and website updates.</li>
           </ul>
-
-          <div class="img-upload-section">
-            <span class="img-upload-label">📷 Square One Mall — Promotional Graphics & Events</span>
-            <div class="img-upload-grid">
-          <div class="img-slot" id="slot-squareone-1">
-            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-1')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 1</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'squareone-1')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-squareone-2">
-            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-2')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 2</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'squareone-2')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-squareone-3">
-            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-3')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 3</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'squareone-3')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-squareone-4">
-            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-4')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 4</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'squareone-4')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-squareone-5">
-            <input type="file" accept="image/*" onchange="previewImg(this,'squareone-5')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 5</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'squareone-5')">✕</button>
-          </div>
-            </div>
+          <div class="img-strip">
+            <div class="img-strip-cell"><img src="images/squareone-1.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/squareone-2.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/squareone-3.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/squareone-4.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/squareone-5.jpg" alt="Square One Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
           </div>
         </div>
       </div>
 
+      <!-- Atrium -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
           <div class="tl-header">
-            <div>
-              <div class="tl-role">Marketing Executive</div>
-              <div class="tl-company">Atrium Mall</div>
-            </div>
+            <div><div class="tl-role">Marketing Executive</div><div class="tl-company">Atrium Mall</div></div>
             <div class="tl-duration">3 Years</div>
           </div>
           <ul class="tl-body tl-list">
@@ -803,46 +358,12 @@
             <li>Developed and executed annual and seasonal campaigns that increased mall foot traffic during peak periods.</li>
             <li>Managed a six-figure marketing budget and oversaw partnerships with various brands.</li>
           </ul>
-
-          <div class="img-upload-section">
-            <span class="img-upload-label">📷 Atrium Mall — Exterior & Key Events</span>
-            <div class="img-upload-grid">
-          <div class="img-slot" id="slot-atrium-1">
-            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-1')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 1</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'atrium-1')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-atrium-2">
-            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-2')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 2</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'atrium-2')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-atrium-3">
-            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-3')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 3</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'atrium-3')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-atrium-4">
-            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-4')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 4</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'atrium-4')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-atrium-5">
-            <input type="file" accept="image/*" onchange="previewImg(this,'atrium-5')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 5</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'atrium-5')">✕</button>
-          </div>
-            </div>
+          <div class="img-strip">
+            <div class="img-strip-cell"><img src="images/atrium-1.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/atrium-2.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/atrium-3.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/atrium-4.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
+            <div class="img-strip-cell"><img src="images/atrium-5.jpg" alt="Atrium Mall" onerror="this.parentElement.className='img-strip-cell empty';this.remove();this.parentElement.innerHTML='<span>Photo</span>'"></div>
           </div>
         </div>
       </div>
@@ -861,114 +382,134 @@
     </div>
     <div class="projects-grid">
 
+      <!-- Project 01 -->
       <div class="project-card fade-in">
-        <div class="project-img" style="height:auto;padding:1.2rem;display:block;">
-          <div class="project-num">Project 01</div>
-          <div class="img-upload-section">
-            <span class="img-upload-label">📷 ICC Champions Trophy — Stadium & Crowd Photos</span>
-            <div class="img-upload-grid">
-          <div class="img-slot" id="slot-icc-1">
-            <input type="file" accept="image/*" onchange="previewImg(this,'icc-1')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 1</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'icc-1')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-icc-2">
-            <input type="file" accept="image/*" onchange="previewImg(this,'icc-2')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 2</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'icc-2')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-icc-3">
-            <input type="file" accept="image/*" onchange="previewImg(this,'icc-3')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 3</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'icc-3')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-icc-4">
-            <input type="file" accept="image/*" onchange="previewImg(this,'icc-4')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 4</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'icc-4')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-icc-5">
-            <input type="file" accept="image/*" onchange="previewImg(this,'icc-5')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 5</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'icc-5')">✕</button>
-          </div>
-            </div>
-          </div>
+        <div class="project-thumb-wrap">
+          <span class="project-num">01</span>
+          <!-- REPLACE src: src="images/proj-icc.jpg" -->
+          <img class="project-thumb" src="images/proj-icc.jpg" alt="ICC Champions Trophy" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M12 2L2 7l10 5 10-5-10-5z\'/><path d=\'M2 17l10 5 10-5\'/><path d=\'M2 12l10 5 10-5\'/></svg><span class=project-num>01</span>'">
         </div>
         <div class="project-body">
           <div class="project-title">ICC Champions Trophy 2025</div>
-          <p class="project-desc">Directed nationwide event operations for the prestigious international cricket tournament, overseeing logistics, branding, and on-ground management across multiple cities.</p>
-          <div class="project-tags">
-            <span class="tag">Event Operations</span>
-            <span class="tag">Multi-City</span>
-            <span class="tag">Logistics</span>
-            <span class="tag">Karachi · Lahore · Rawalpindi</span>
-          </div>
+          <p class="project-desc">Directed nationwide event operations for the prestigious international cricket tournament, overseeing logistics, branding, and on-ground management across Karachi, Lahore & Rawalpindi.</p>
+          <div class="project-tags"><span class="tag">Event Operations</span><span class="tag">Multi-City</span><span class="tag">Logistics</span></div>
         </div>
       </div>
 
+      <!-- Project 02 -->
       <div class="project-card fade-in">
-        <div class="project-img" style="height:auto;padding:1.2rem;display:block;">
-          <div class="project-num">Project 02</div>
-          <div class="img-upload-section">
-            <span class="img-upload-label">📷 Corporate Events — Diners, J., Igloo Setups</span>
-            <div class="img-upload-grid">
-          <div class="img-slot" id="slot-corp-1">
-            <input type="file" accept="image/*" onchange="previewImg(this,'corp-1')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 1</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'corp-1')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-corp-2">
-            <input type="file" accept="image/*" onchange="previewImg(this,'corp-2')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 2</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'corp-2')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-corp-3">
-            <input type="file" accept="image/*" onchange="previewImg(this,'corp-3')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 3</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'corp-3')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-corp-4">
-            <input type="file" accept="image/*" onchange="previewImg(this,'corp-4')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 4</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'corp-4')">✕</button>
-          </div>
-          <div class="img-slot" id="slot-corp-5">
-            <input type="file" accept="image/*" onchange="previewImg(this,'corp-5')">
-            <div class="img-slot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-            <span class="img-slot-text">Photo 5</span>
-            <img class="preview" alt="">
-            <button class="remove-btn" onclick="removeImg(event,'corp-5')">✕</button>
-          </div>
-            </div>
-          </div>
+        <div class="project-thumb-wrap">
+          <span class="project-num">02</span>
+          <img class="project-thumb" src="images/proj-diners.jpg" alt="Diners Brand Activation" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><rect x=2 y=3 width=20 height=14 rx=2/><path d=\'M8 21h8M12 17v4\'/></svg><span class=project-num>02</span>'">
         </div>
         <div class="project-body">
-          <div class="project-title">Corporate Event Masterclasses</div>
-          <p class="project-desc">Designed and executed high-profile corporate events and brand activations for top-tier national brands including Diners, J., and Igloo.</p>
-          <div class="project-tags">
-            <span class="tag">Brand Activation</span>
-            <span class="tag">Corporate Events</span>
-            <span class="tag">Vendor Management</span>
-          </div>
+          <div class="project-title">Diners Brand Activation</div>
+          <p class="project-desc">Conceptualized and executed high-impact brand activation campaigns for Diners, driving foot traffic and brand awareness through immersive in-mall experiences.</p>
+          <div class="project-tags"><span class="tag">Brand Activation</span><span class="tag">Retail Marketing</span><span class="tag">OOH</span></div>
+        </div>
+      </div>
+
+      <!-- Project 03 -->
+      <div class="project-card fade-in">
+        <div class="project-thumb-wrap">
+          <span class="project-num">03</span>
+          <img class="project-thumb" src="images/proj-melo.jpg" alt="Melo E-Commerce Launch" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><circle cx=8 cy=21 r=1/><circle cx=19 cy=21 r=1/><path d=\'M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12\'/></svg><span class=project-num>03</span>'">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Melo E-Commerce Launch</div>
+          <p class="project-desc">End-to-end digital launch of Melo by Imran Abbas — store setup, Meta & Google Ads, influencer partnerships, and SEO driving measurable growth in online sales.</p>
+          <div class="project-tags"><span class="tag">E-Commerce</span><span class="tag">Meta Ads</span><span class="tag">Influencer PR</span></div>
+        </div>
+      </div>
+
+      <!-- Project 04 -->
+      <div class="project-card fade-in">
+        <div class="project-thumb-wrap">
+          <span class="project-num">04</span>
+          <img class="project-thumb" src="images/proj-igloo.jpg" alt="Igloo Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'/><polyline points=\'9 22 9 12 15 12 15 22\'/></svg><span class=project-num>04</span>'">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Igloo Seasonal Campaign</div>
+          <p class="project-desc">Planned and managed a nationwide seasonal marketing push for Igloo, coordinating product sampling events, mall activations, and social media storytelling.</p>
+          <div class="project-tags"><span class="tag">FMCG Marketing</span><span class="tag">Sampling Events</span><span class="tag">Social Media</span></div>
+        </div>
+      </div>
+
+      <!-- Project 05 -->
+      <div class="project-card fade-in">
+        <div class="project-thumb-wrap">
+          <span class="project-num">05</span>
+          <img class="project-thumb" src="images/proj-atrium.jpg" alt="Atrium Mall Annual Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><rect x=2 y=7 width=20 height=14 rx=2/><path d=\'M16 3h-8l-2 4h12z\'/></svg><span class=project-num>05</span>'">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Atrium Mall Annual Campaign</div>
+          <p class="project-desc">Developed the full annual events calendar for Atrium Mall — seasonal promotions, Eid campaigns, and brand partnership activations that consistently lifted footfall during peak periods.</p>
+          <div class="project-tags"><span class="tag">Retail Events</span><span class="tag">Seasonal Campaigns</span><span class="tag">Budget Management</span></div>
+        </div>
+      </div>
+
+      <!-- Project 06 -->
+      <div class="project-card fade-in">
+        <div class="project-thumb-wrap">
+          <span class="project-num">06</span>
+          <img class="project-thumb" src="images/proj-j.jpg" alt="J. Fashion Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z\'/></svg><span class=project-num>06</span>'">
+        </div>
+        <div class="project-body">
+          <div class="project-title">J. Fashion 360° Campaign</div>
+          <p class="project-desc">Managed a 360-degree marketing campaign for J. covering digital, OOH, and in-store activations. Delivered cohesive brand messaging across all touchpoints for a major festive season launch.</p>
+          <div class="project-tags"><span class="tag">Fashion Marketing</span><span class="tag">360° Campaign</span><span class="tag">OOH</span></div>
+        </div>
+      </div>
+
+      <!-- Project 07 -->
+      <div class="project-card fade-in">
+        <div class="project-thumb-wrap">
+          <span class="project-num">07</span>
+          <img class="project-thumb" src="images/proj-squareone.jpg" alt="Square One Mall Events" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><polygon points=\'12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\'/></svg><span class=project-num>07</span>'">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Square One Mall Events Series</div>
+          <p class="project-desc">Spearheaded the full event lifecycle at Square One Mall — from concept to on-site execution — delivering seamless vendor coordination and promotional communications that drove visitor engagement.</p>
+          <div class="project-tags"><span class="tag">Event Management</span><span class="tag">Vendor Coordination</span><span class="tag">PR</span></div>
+        </div>
+      </div>
+
+      <!-- Project 08 -->
+      <div class="project-card fade-in">
+        <div class="project-thumb-wrap">
+          <span class="project-num">08</span>
+          <img class="project-thumb" src="images/proj-signature.jpg" alt="Signature Mall UK" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><circle cx=12 cy=12 r=10/><line x1=2 y1=12 x2=22 y2=12/><path d=\'M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\'/></svg><span class=project-num>08</span>'">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Signature Mall UK Partnership</div>
+          <p class="project-desc">Led marketing strategy and campaign execution for the Signature Mall UK collaboration, handling cross-border brand communications, event tie-ins, and multi-platform promotional rollouts.</p>
+          <div class="project-tags"><span class="tag">International Campaign</span><span class="tag">Cross-Border</span><span class="tag">Brand Strategy</span></div>
+        </div>
+      </div>
+
+      <!-- Project 09 -->
+      <div class="project-card fade-in">
+        <div class="project-thumb-wrap">
+          <span class="project-num">09</span>
+          <img class="project-thumb" src="images/proj-megamall.jpg" alt="Mega Mall Leasing Strategy" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\'/><circle cx=12 cy=10 r=3/></svg><span class=project-num>09</span>'">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Mega Mall Leasing Strategy</div>
+          <p class="project-desc">Redesigned the commercial leasing approach at Mega Mall — market analysis, competitive pricing, proactive tenant outreach, and contract negotiation that maximized occupancy rates.</p>
+          <div class="project-tags"><span class="tag">Commercial Leasing</span><span class="tag">Market Analysis</span><span class="tag">B2B</span></div>
+        </div>
+      </div>
+
+      <!-- Project 10 -->
+      <div class="project-card fade-in">
+        <div class="project-thumb-wrap">
+          <span class="project-num">10</span>
+          <img class="project-thumb" src="images/proj-seo.jpg" alt="SEO & Content Strategy" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><circle cx=11 cy=11 r=8/><line x1=21 y1=21 x2=16.65 y2=16.65/></svg><span class=project-num>10</span>'">
+        </div>
+        <div class="project-body">
+          <div class="project-title">SEO & Content Growth Strategy</div>
+          <p class="project-desc">Built and executed a full-funnel SEO and content strategy for an e-commerce brand — keyword research, on-page optimization, and content production that drove significant organic traffic growth.</p>
+          <div class="project-tags"><span class="tag">SEO</span><span class="tag">Content Strategy</span><span class="tag">Organic Growth</span></div>
         </div>
       </div>
 
@@ -985,77 +526,46 @@
       <div class="divider"></div>
     </div>
     <div class="skills-grid">
-
       <div class="skill-card fade-in" data-skill="92">
         <div class="skill-header">
-          <div class="skill-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <div>
-            <div class="skill-name">Event Planning & Operations</div>
-            <div class="skill-sub">Nationwide logistics · vendor management · on-ground execution</div>
-          </div>
+          <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><div class="skill-name">Event Planning & Operations</div><div class="skill-sub">Nationwide logistics · vendor management · on-ground execution</div></div>
         </div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:92%"></div></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">92%</div>
       </div>
-
       <div class="skill-card fade-in" data-skill="88">
         <div class="skill-header">
-          <div class="skill-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          </div>
-          <div>
-            <div class="skill-name">Performance Marketing</div>
-            <div class="skill-sub">Meta Ads · Google Ads · Budget management · ROI scaling</div>
-          </div>
+          <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div><div class="skill-name">Performance Marketing</div><div class="skill-sub">Meta Ads · Google Ads · Budget management · ROI scaling</div></div>
         </div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:88%"></div></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">88%</div>
       </div>
-
       <div class="skill-card fade-in" data-skill="85">
         <div class="skill-header">
-          <div class="skill-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </div>
-          <div>
-            <div class="skill-name">Digital Marketing & SEO</div>
-            <div class="skill-sub">Search visibility · content strategy · brand positioning</div>
-          </div>
+          <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div><div class="skill-name">Digital Marketing & SEO</div><div class="skill-sub">Search visibility · content strategy · brand positioning</div></div>
         </div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:85%"></div></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">85%</div>
       </div>
-
       <div class="skill-card fade-in" data-skill="90">
         <div class="skill-header">
-          <div class="skill-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-8l-2 4h12z"/></svg>
-          </div>
-          <div>
-            <div class="skill-name">Commercial Strategy</div>
-            <div class="skill-sub">Leasing negotiations · B2B pitching · tenant relations</div>
-          </div>
+          <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-8l-2 4h12z"/></svg></div>
+          <div><div class="skill-name">Commercial Strategy</div><div class="skill-sub">Leasing negotiations · B2B pitching · tenant relations</div></div>
         </div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:90%"></div></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">90%</div>
       </div>
-
       <div class="skill-card fade-in" data-skill="82">
         <div class="skill-header">
-          <div class="skill-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-          </div>
-          <div>
-            <div class="skill-name">E-Commerce Optimization</div>
-            <div class="skill-sub">CRO audits · dropshipping ecosystems · consumer journey mapping</div>
-          </div>
+          <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></div>
+          <div><div class="skill-name">E-Commerce Optimization</div><div class="skill-sub">CRO audits · dropshipping ecosystems · consumer journey mapping</div></div>
         </div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:82%"></div></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">82%</div>
       </div>
-
     </div>
   </div>
 </section>
@@ -1072,126 +582,76 @@
       <div class="contact-info">
         <p>Ready to elevate your brand? Whether it's a large-scale event, a performance marketing campaign, or a full brand overhaul — let's talk strategy.</p>
         <div class="contact-links">
+
           <a href="mailto:hello@muhammadali.com" class="contact-link">
             <div class="contact-link-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
             hello@muhammadali.com
           </a>
-          <a href="https://linkedin.com" target="_blank" class="contact-link">
+
+          <!-- REPLACE the number in href with your actual WhatsApp number (country code + number, no +) -->
+          <a href="https://wa.me/923001234567" target="_blank" class="contact-link">
+            <div class="contact-link-icon wa">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            </div>
+            +92 300 123 4567
+          </a>
+
+          <a href="https://linkedin.com/in/muhammadali" target="_blank" class="contact-link">
             <div class="contact-link-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             </div>
             linkedin.com/in/muhammadali
           </a>
+
         </div>
       </div>
       <div class="contact-form">
         <div class="form-row">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" placeholder="Your full name">
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="your@email.com">
-          </div>
+          <div class="form-group"><label>Name</label><input type="text" placeholder="Your full name"></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"></div>
         </div>
-        <div class="form-group">
-          <label>Subject</label>
-          <input type="text" placeholder="What's this about?">
-        </div>
-        <div class="form-group">
-          <label>Message</label>
-          <textarea placeholder="Tell me about your project..."></textarea>
-        </div>
-        <button class="btn-submit">
-          Send Message
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
+        <div class="form-group"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+        <button class="btn-submit">Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span>© 2026 Muhammad Ali. All rights reserved.</span>
   <div style="display:flex;gap:1.5rem">
     <a href="mailto:hello@muhammadali.com">Email</a>
+    <a href="https://wa.me/923001234567" target="_blank">WhatsApp</a>
     <a href="https://linkedin.com" target="_blank">LinkedIn</a>
   </div>
 </footer>
 
 <script>
-/* ── PARTICLES ── */
 (function(){
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
   let W, H, dots = [];
   function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
   window.addEventListener('resize', resize); resize();
-  for(let i=0;i<55;i++) dots.push({
-    x: Math.random()*1920, y: Math.random()*1080,
-    r: Math.random()*1.4+.4,
-    vx: (Math.random()-.5)*.18,
-    vy: (Math.random()-.5)*.18,
-    a: Math.random()*.5+.1
-  });
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    dots.forEach(d=>{
-      d.x+=d.vx; d.y+=d.vy;
-      if(d.x<0||d.x>W) d.vx*=-1;
-      if(d.y<0||d.y>H) d.vy*=-1;
-      ctx.beginPath();
-      ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(138,43,226,${d.a})`;
-      ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
+  for(let i=0;i<55;i++) dots.push({ x:Math.random()*1920, y:Math.random()*1080, r:Math.random()*1.4+.4, vx:(Math.random()-.5)*.18, vy:(Math.random()-.5)*.18, a:Math.random()*.5+.1 });
+  function draw(){ ctx.clearRect(0,0,W,H); dots.forEach(d=>{ d.x+=d.vx; d.y+=d.vy; if(d.x<0||d.x>W)d.vx*=-1; if(d.y<0||d.y>H)d.vy*=-1; ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fillStyle=`rgba(138,43,226,${d.a})`; ctx.fill(); }); requestAnimationFrame(draw); }
   draw();
 })();
 
-/* ── SCROLL FADE-IN ── */
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
       e.target.classList.add('visible');
-      // animate skill bars
       const bar = e.target.querySelector('.skill-bar-fill');
-      if(bar){ const w = e.target.dataset.skill||'0'; setTimeout(()=>bar.style.width=w+'%',100); }
+      const pct = e.target.dataset.skill;
+      if(bar && pct) setTimeout(()=>bar.style.width=pct+'%', 100);
     }
   });
 },{threshold:.15});
 document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
-
-/* ── IMAGE UPLOAD PREVIEW ── */
-function previewImg(input, sid) {
-  const slot = document.getElementById('slot-' + sid);
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    slot.querySelector('img.preview').src = e.target.result;
-    slot.classList.add('has-image');
-  };
-  reader.readAsDataURL(file);
-}
-function removeImg(e, sid) {
-  e.preventDefault(); e.stopPropagation();
-  const slot = document.getElementById('slot-' + sid);
-  slot.querySelector('img.preview').src = '';
-  slot.querySelector('input[type=file]').value = '';
-  slot.classList.remove('has-image');
-}
-
-/* ── SKILL BARS from CSS var (fallback) ── */
-document.querySelectorAll('.skill-bar-fill').forEach(b=>{
-  const w = getComputedStyle(b).getPropertyValue('--w');
-  b.style.setProperty('--w', w);
-});
 </script>
 </body>
 </html>
