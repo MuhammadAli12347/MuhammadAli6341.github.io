@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muhammad Ali — Marketing & Automation Specialist</title>
@@ -93,27 +92,22 @@
   .tl-list li { padding-left: 1.2rem; position: relative; }
   .tl-list li::before { content: '✦'; position: absolute; left: 0; color: var(--purple); font-size: .65rem; top: .28rem; }
 
-  /* IMAGE STRIP */
   .img-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: .6rem; margin-top: 1.2rem; }
   .img-strip-cell { aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #111; border: 1px solid rgba(138,43,226,.2); cursor: pointer; position: relative; }
   .img-strip-cell img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
   .img-strip-cell:hover img { transform: scale(1.08); }
   .img-strip-cell.empty { display: flex; align-items: center; justify-content: center; background: rgba(138,43,226,.05); border: 1px dashed rgba(138,43,226,.2); cursor: default; }
   .img-strip-cell.empty span { font-size: .6rem; color: rgba(138,43,226,.3); letter-spacing: .05em; }
-  /* Zoom icon overlay on hover */
   .img-strip-cell:not(.empty)::after { content: '⤢'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #fff; background: rgba(138,43,226,.45); opacity: 0; transition: opacity .25s; }
   .img-strip-cell:not(.empty):hover::after { opacity: 1; }
 
-  /* PROJECT THUMB clickable */
   .project-thumb-wrap { cursor: pointer; }
   .project-thumb-wrap:not(.no-img)::after { content: '⤢'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; background: rgba(138,43,226,.45); opacity: 0; transition: opacity .25s; }
   .project-thumb-wrap:not(.no-img):hover::after { opacity: 1; }
 
-  /* HEADSHOT clickable overlay */
   .headshot-box::after { content: '⤢'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; background: rgba(138,43,226,.45); opacity: 0; transition: opacity .25s; border-radius: 20px; z-index: 2; }
   .headshot-box:hover::after { opacity: 1; }
 
-  /* ─── LIGHTBOX ─── */
   #lightbox { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.88); backdrop-filter: blur(10px); padding: 1.5rem; }
   #lightbox.open { display: flex; }
   #lightbox-inner { position: relative; max-width: 860px; width: 100%; animation: lbIn .25s ease; }
@@ -128,7 +122,6 @@
   #lightbox-prev:hover, #lightbox-next:hover { background: var(--purple); box-shadow: 0 0 16px var(--purple-glow); }
   #lightbox-prev.hidden, #lightbox-next.hidden { display: none; }
 
-  /* PROJECTS */
   #projects { background: var(--bg); }
   .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
   .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color .3s, box-shadow .3s, transform .3s; }
@@ -181,20 +174,7 @@
   footer a { color: var(--muted); text-decoration: none; transition: color .2s; }
   footer a:hover { color: var(--purple); }
 
-  @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; text-align: center; }
-    .hero-image { order: -1; justify-content: center; }
-    .headshot-wrap { width: 200px; height: 240px; }
-    .hero-buttons { justify-content: center; }
-    .hero-sub, .hero-bio { margin-left: auto; margin-right: auto; }
-    .about-grid, .contact-grid { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-    .img-strip { grid-template-columns: repeat(3, 1fr); }
-    #lightbox-prev { left: -.5rem; }
-    #lightbox-next { right: -.5rem; }
-  }
-  /* ─── SERVICES ─── */
+  /* SERVICES */
   #services { background: #0d0d0d; }
   .services-intro { color: rgba(248,248,255,.65); font-size: .96rem; line-height: 1.8; max-width: 680px; margin-bottom: 3rem; }
   .svc-categories { display: flex; flex-direction: column; gap: 2.5rem; }
@@ -211,13 +191,34 @@
   .svc-item-name::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
   .svc-item-desc { font-size: .8rem; color: rgba(248,248,255,.55); line-height: 1.6; }
 
-  @media (max-width: 900px) {
-    .svc-items { grid-template-columns: 1fr 1fr; }
-    .svc-cat-header { padding: 1.2rem 1.4rem; }
-    .svc-item { padding: 1.1rem 1.2rem; }
+  /* === BRAND MARKETING SPECIALIST — FEATURED BADGE === */
+  .svc-category.featured {
+    border-color: rgba(138,43,226,.5);
+    background: linear-gradient(135deg, rgba(138,43,226,.08) 0%, var(--card) 55%);
+    position: relative;
   }
-  @media (max-width: 540px) {
-    .svc-items { grid-template-columns: 1fr; }
+  .svc-category.featured::before {
+    content: '★  SIGNATURE SERVICE';
+    position: absolute;
+    top: -1px; right: 2rem;
+    background: var(--purple);
+    color: #fff;
+    font-size: .62rem;
+    letter-spacing: .16em;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    padding: .28rem .85rem;
+    border-radius: 0 0 10px 10px;
+  }
+  .svc-category.featured .svc-cat-header {
+    background: rgba(138,43,226,.13);
+  }
+  .svc-category.featured .svc-cat-icon {
+    background: rgba(138,43,226,.28);
+    box-shadow: 0 0 20px var(--purple-glow);
+  }
+  .svc-category.featured .svc-cat-title {
+    font-size: 1.18rem;
   }
 
   @media (max-width: 900px) {
@@ -232,6 +233,12 @@
     .img-strip { grid-template-columns: repeat(3, 1fr); }
     #lightbox-prev { left: -.5rem; }
     #lightbox-next { right: -.5rem; }
+    .svc-items { grid-template-columns: 1fr 1fr; }
+    .svc-cat-header { padding: 1.2rem 1.4rem; }
+    .svc-item { padding: 1.1rem 1.2rem; }
+  }
+  @media (max-width: 540px) {
+    .svc-items { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     .fade-in { opacity: 1; transform: none; transition: none; }
@@ -244,10 +251,10 @@
 <!-- LIGHTBOX -->
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
   <div id="lightbox-inner">
-    <button id="lightbox-close" aria-label="Close">✕</button>
-    <button id="lightbox-prev" aria-label="Previous image">‹</button>
+    <button id="lightbox-close" aria-label="Close">&#x2715;</button>
+    <button id="lightbox-prev" aria-label="Previous image">&#x2039;</button>
     <img id="lightbox-img" src="" alt="">
-    <button id="lightbox-next" aria-label="Next image">›</button>
+    <button id="lightbox-next" aria-label="Next image">&#x203A;</button>
     <div id="lightbox-caption"></div>
   </div>
 </div>
@@ -273,7 +280,7 @@
       <div class="hero-tag">Available for New Projects</div>
       <h1><br><em>Next-Gen</em> Automation<em> Marketing</em><br>Experiences.</h1>
       <p class="hero-sub">Driving omnichannel brand growth by integrating performance marketing with experiential retail activations.</p>
-      <p class="hero-bio">Hello, I am <strong>Muhammad Ali</strong>, a results-driven <strong>Marketing Strategist</strong> and <strong>Brand Marketing Specialist</strong>. As a multi-disciplinary <strong>Digital Marketing Expert</strong> and <strong>Web Programmer</strong>, I specialize in driving end-to-end growth—from engineering high-converting <strong>e-commerce</strong> platforms on <strong>Shopify</strong> and <strong>WordPress</strong> to executing <strong>Social Media Marketing</strong>, <strong>Expert Ads Marketing</strong>, and advanced <strong>SEO Analyst</strong> strategies. Beyond the screen, I transition brand journeys into physical markets through corporate <strong>Branding</strong>, commercial <strong>Mall Management</strong>, retail <strong>Leasing</strong>, and high-impact <strong>Events Management</strong>.</p>
+      <p class="hero-bio">Hello, I am <strong>Muhammad Ali</strong>, a results-driven <strong>Marketing Strategist</strong> and <strong>Brand Marketing Specialist</strong>. As a multi-disciplinary <strong>Digital Marketing Expert</strong> and <strong>Web Programmer</strong>, I specialize in driving end-to-end growth from engineering high-converting <strong>e-commerce</strong> platforms on <strong>Shopify</strong> and <strong>WordPress</strong> to executing <strong>Social Media Marketing</strong>, <strong>Expert Ads Marketing</strong>, and advanced <strong>SEO Analyst</strong> strategies. Beyond the screen, I transition brand journeys into physical markets through corporate <strong>Branding</strong>, commercial <strong>Mall Management</strong>, retail <strong>Leasing</strong>, and high-impact <strong>Events Management</strong>.</p>
       <div class="hero-buttons">
         <a href="#projects" class="btn-primary">View My Work</a>
         <a href="#contact" class="btn-outline">Get in Touch</a>
@@ -281,11 +288,10 @@
     </div>
     <div class="hero-image">
       <div class="headshot-wrap">
-        <div class="headshot-box" data-lightbox-src="KC4A2107.JPG" alt="Headshot" style="width: 100%; height: 100%; object-fit: cover; object-position: top;" data-lightbox-caption="Muhammad Ali — Marketing Specialist">
-          
+        <div class="headshot-box" data-lightbox-src="KC4A2107.JPG" data-lightbox-caption="Muhammad Ali — Marketing Specialist">
           <div class="fallback">
             <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-            <span style="font-size:.8rem"><img src="KC4A2107.JPG" alt="Headshot" style="width: 100%; height: 100%; object-fit: cover; object-position: top;"></span>
+            <span style="font-size:.8rem"><img src="KC4A2107.JPG" alt="Headshot" style="width:100%;height:100%;object-fit:cover;object-position:top;"></span>
           </div>
         </div>
         <div class="headshot-glow"></div>
@@ -304,15 +310,15 @@
     </div>
     <div class="about-grid fade-in">
       <div class="glass-card">
-        <p class="about-text">With over six years of experience delivering results for malls and brands across retail, events, and e-commerce. Expertise in planning large-scale activations, executing influencer/celebrity PR, and developing integrated strategies that drive footfall and revenue. Skilled in mall and lease management, including tenant acquisition and contract negotiation. </p>
-        <p class="about-text" style="margin-top:1rem">On the digital side, I specialize in full-funnel social media marketing including: Meta Ads, Google Ads, content strategy, and community management, alongside performance marketing, SEO, website management, and marketplace operations on Amazon and Noon. Proven ability to bridge offline and online channels to build brand equity and maximize ROI.</p>
+        <p class="about-text">With over six years of experience delivering results for malls and brands across retail, events, and e-commerce. Expertise in planning large-scale activations, executing influencer/celebrity PR, and developing integrated strategies that drive footfall and revenue. Skilled in mall and lease management, including tenant acquisition and contract negotiation.</p>
+        <p class="about-text" style="margin-top:1rem">On the digital side, I specialize in full-funnel social media marketing including Meta Ads, Google Ads, content strategy, and community management, alongside performance marketing, SEO, website management, and marketplace operations on Amazon and Noon. Proven ability to bridge offline and online channels to build brand equity and maximize ROI.</p>
       </div>
       <div>
         <div class="about-stats">
           <div class="stat-box fade-in"><div class="stat-num">6+</div><div class="stat-label">Years of Experience</div></div>
           <div class="stat-box fade-in"><div class="stat-num">$30K+</div><div class="stat-label">Campaign Budgets Managed</div></div>
           <div class="stat-box fade-in"><div class="stat-num">20</div><div class="stat-label">Major Brands Served</div></div>
-          <div class="stat-box fade-in"><div class="stat-num">3</div><div class="stat-label">International Major Clints</div></div>
+          <div class="stat-box fade-in"><div class="stat-num">3</div><div class="stat-label">International Major Clients</div></div>
         </div>
       </div>
     </div>
@@ -327,9 +333,52 @@
       <h2>Services</h2>
       <div class="divider"></div>
     </div>
-    <p class="services-intro fade-in">From large-scale event production to digital brand building, I offer end-to-end marketing solutions across six core practice areas — each designed to deliver measurable impact for your brand.</p>
+    <p class="services-intro fade-in">From large-scale event production to digital brand building, I offer end-to-end marketing solutions across seven core practice areas — each designed to deliver measurable impact for your brand.</p>
 
     <div class="svc-categories">
+
+      <!-- ★ NEW: BRAND MARKETING SPECIALIST -->
+      <div class="svc-category featured fade-in">
+        <div class="svc-cat-header">
+          <div class="svc-cat-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="svc-cat-title">Brand Marketing Specialist</div>
+            <div class="svc-cat-sub">360° Brand Growth &middot; Online &amp; Offline &middot; Nationwide Pakistan &amp; International Reach</div>
+          </div>
+        </div>
+        <div class="svc-items">
+          <div class="svc-item">
+            <div class="svc-item-name">E-Commerce Website Management &amp; Maintenance</div>
+            <div class="svc-item-desc">Complete day-to-day management of your Shopify or WordPress store — product uploads, inventory sync, speed optimization, plugin updates, and ongoing maintenance so your storefront is always performing at its peak.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Brand Social Media Management</div>
+            <div class="svc-item-desc">Full ownership of your brand's social presence across Instagram, Facebook, TikTok, and LinkedIn — content calendars, creative direction, copywriting, scheduling, and community management to grow and engage your audience consistently.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Offline Brand Representation</div>
+            <div class="svc-item-desc">Taking your brand into the real world through exhibitions, expos, trade shows, and live event activations. I represent your brand on the ground, creating impactful physical touchpoints that convert audiences into loyal customers.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Performance Marketing</div>
+            <div class="svc-item-desc">Full-funnel paid media management across Meta Ads and Google Ads — precise audience targeting, creative testing, A/B optimization, budget scaling, and detailed ROI reporting to maximize every rupee of your ad spend.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">OOH Advertising — Pakistan-Wide Network</div>
+            <div class="svc-item-desc">Direct connections with OOH vendors across all major cities in Pakistan — billboards, transit ads, digital screens, bus shelters, and high-traffic placements in Karachi, Lahore, Islamabad, and beyond. One call gets your brand everywhere.</div>
+          </div>
+          <div class="svc-item">
+            <div class="svc-item-name">Mall Leasing &amp; Retail Placement</div>
+            <div class="svc-item-desc">Leveraging an extensive personal network of malls across Pakistan and internationally to secure prime retail space for your brand — pop-up placements, kiosk activations, and permanent units negotiated at the best terms in high-footfall locations.</div>
+          </div>
+        </div>
+      </div>
 
       <!-- 1. PR & Influencer -->
       <div class="svc-category fade-in">
@@ -338,7 +387,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <div>
-            <div class="svc-cat-title">PR & Influencer Services</div>
+            <div class="svc-cat-title">PR &amp; Influencer Services</div>
             <div class="svc-cat-sub">Your Story. Amplified. Your Brand. Remembered.</div>
           </div>
         </div>
@@ -348,7 +397,7 @@
             <div class="svc-item-desc">Connect with the right influencers to amplify reach, build trust, and drive authentic engagement for your brand.</div>
           </div>
           <div class="svc-item">
-            <div class="svc-item-name">Media Relations & PR</div>
+            <div class="svc-item-name">Media Relations &amp; PR</div>
             <div class="svc-item-desc">Strategic press placements, media outreach, and brand storytelling that keep you in the spotlight.</div>
           </div>
           <div class="svc-item">
@@ -374,34 +423,13 @@
           </div>
         </div>
         <div class="svc-items">
-          <div class="svc-item">
-            <div class="svc-item-name">Career Management</div>
-            <div class="svc-item-desc">Strategic planning and long-term career roadmapping for sustainable growth in the industry.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Bookings & Events</div>
-            <div class="svc-item-desc">Gigs, tours, and performances handled professionally — end to end.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Branding & Promotions</div>
-            <div class="svc-item-desc">Build your personal brand and reach the right audience with targeted promotional campaigns.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Public Relations</div>
-            <div class="svc-item-desc">Media connections and press management to keep your name in the right conversations.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Social Media Management</div>
-            <div class="svc-item-desc">Grow your presence, engage your fans, and maintain a consistent digital identity.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Contracts & Negotiations</div>
-            <div class="svc-item-desc">Best deals. Strong partnerships. Maximum value — handled with precision.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Revenue Management</div>
-            <div class="svc-item-desc">Monetize your talent and maximize earnings across all available revenue streams.</div>
-          </div>
+          <div class="svc-item"><div class="svc-item-name">Career Management</div><div class="svc-item-desc">Strategic planning and long-term career roadmapping for sustainable growth in the industry.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Bookings &amp; Events</div><div class="svc-item-desc">Gigs, tours, and performances handled professionally — end to end.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Branding &amp; Promotions</div><div class="svc-item-desc">Build your personal brand and reach the right audience with targeted promotional campaigns.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Public Relations</div><div class="svc-item-desc">Media connections and press management to keep your name in the right conversations.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Social Media Management</div><div class="svc-item-desc">Grow your presence, engage your fans, and maintain a consistent digital identity.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Contracts &amp; Negotiations</div><div class="svc-item-desc">Best deals. Strong partnerships. Maximum value — handled with precision.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Revenue Management</div><div class="svc-item-desc">Monetize your talent and maximize earnings across all available revenue streams.</div></div>
         </div>
       </div>
 
@@ -413,30 +441,15 @@
           </div>
           <div>
             <div class="svc-cat-title">Digital Marketing</div>
-            <div class="svc-cat-sub">SM Campaigns · SEO · Paid Ads · Social Media Optimization</div>
+            <div class="svc-cat-sub">SM Campaigns &middot; SEO &middot; Paid Ads &middot; Social Media Optimization</div>
           </div>
         </div>
         <div class="svc-items">
-          <div class="svc-item">
-            <div class="svc-item-name">Social Media Campaigns</div>
-            <div class="svc-item-desc">Data-driven SM campaigns across Meta, TikTok, and LinkedIn that convert followers into customers.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Search Engine Optimization</div>
-            <div class="svc-item-desc">Keyword research, on-page optimization, and content strategy to boost your organic visibility.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Social Media Marketing & Optimization</div>
-            <div class="svc-item-desc">Growing your social channels through organic strategy, community management, and SMO best practices.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Paid Advertisements</div>
-            <div class="svc-item-desc">Meta Ads, Google Ads, and display advertising managed for maximum ROI and audience acquisition.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">SM Applications</div>
-            <div class="svc-item-desc">Custom social media app integrations and tools to streamline publishing and audience engagement.</div>
-          </div>
+          <div class="svc-item"><div class="svc-item-name">Social Media Campaigns</div><div class="svc-item-desc">Data-driven SM campaigns across Meta, TikTok, and LinkedIn that convert followers into customers.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Search Engine Optimization</div><div class="svc-item-desc">Keyword research, on-page optimization, and content strategy to boost your organic visibility.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Social Media Marketing &amp; Optimization</div><div class="svc-item-desc">Growing your social channels through organic strategy, community management, and SMO best practices.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Paid Advertisements</div><div class="svc-item-desc">Meta Ads, Google Ads, and display advertising managed for maximum ROI and audience acquisition.</div></div>
+          <div class="svc-item"><div class="svc-item-name">SM Applications</div><div class="svc-item-desc">Custom social media app integrations and tools to streamline publishing and audience engagement.</div></div>
         </div>
       </div>
 
@@ -447,27 +460,15 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           </div>
           <div>
-            <div class="svc-cat-title">Commercial & Corporate Events · Mall Events</div>
-            <div class="svc-cat-sub">Brand Launches · Concerts · Activations · OOH</div>
+            <div class="svc-cat-title">Commercial &amp; Corporate Events &middot; Mall Events</div>
+            <div class="svc-cat-sub">Brand Launches &middot; Concerts &middot; Activations &middot; OOH</div>
           </div>
         </div>
         <div class="svc-items">
-          <div class="svc-item">
-            <div class="svc-item-name">Corporate Events</div>
-            <div class="svc-item-desc">End-to-end planning and execution of conferences, product launches, and corporate functions.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Mall Events & Brand Activations</div>
-            <div class="svc-item-desc">High-footfall in-mall activations, experiential pop-ups, and consumer engagement events.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Concerts & Entertainment</div>
-            <div class="svc-item-desc">Large-scale concert production, artist coordination, logistics, and on-ground management.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Branding / Activation & OOH</div>
-            <div class="svc-item-desc">Out-of-home advertising, billboard campaigns, and immersive brand activations in high-traffic locations.</div>
-          </div>
+          <div class="svc-item"><div class="svc-item-name">Corporate Events</div><div class="svc-item-desc">End-to-end planning and execution of conferences, product launches, and corporate functions.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Mall Events &amp; Brand Activations</div><div class="svc-item-desc">High-footfall in-mall activations, experiential pop-ups, and consumer engagement events.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Concerts &amp; Entertainment</div><div class="svc-item-desc">Large-scale concert production, artist coordination, logistics, and on-ground management.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Branding / Activation &amp; OOH</div><div class="svc-item-desc">Out-of-home advertising, billboard campaigns, and immersive brand activations in high-traffic locations.</div></div>
         </div>
       </div>
 
@@ -478,27 +479,15 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-8l-2 4h12z"/></svg>
           </div>
           <div>
-            <div class="svc-cat-title">Mall Management, Marketing & Leasing</div>
-            <div class="svc-cat-sub">Occupancy Optimization · Tenant Relations · Retail Strategy</div>
+            <div class="svc-cat-title">Mall Management, Marketing &amp; Leasing</div>
+            <div class="svc-cat-sub">Occupancy Optimization &middot; Tenant Relations &middot; Retail Strategy</div>
           </div>
         </div>
         <div class="svc-items">
-          <div class="svc-item">
-            <div class="svc-item-name">Commercial Leasing</div>
-            <div class="svc-item-desc">Full-cycle leasing management — market analysis, competitive pricing, tenant outreach, and contract negotiation.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Mall Marketing Strategy</div>
-            <div class="svc-item-desc">Annual and seasonal campaigns, promotional calendars, and footfall-driving initiatives tailored for retail environments.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Tenant Mix Optimization</div>
-            <div class="svc-item-desc">Strategic curation of retail tenants to maximize mall revenue, visitor experience, and brand diversity.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">B2B Brand Partnerships</div>
-            <div class="svc-item-desc">Building strategic relationships between malls and brands for co-promotional campaigns and activation partnerships.</div>
-          </div>
+          <div class="svc-item"><div class="svc-item-name">Commercial Leasing</div><div class="svc-item-desc">Full-cycle leasing management — market analysis, competitive pricing, tenant outreach, and contract negotiation.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Mall Marketing Strategy</div><div class="svc-item-desc">Annual and seasonal campaigns, promotional calendars, and footfall-driving initiatives tailored for retail environments.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Tenant Mix Optimization</div><div class="svc-item-desc">Strategic curation of retail tenants to maximize mall revenue, visitor experience, and brand diversity.</div></div>
+          <div class="svc-item"><div class="svc-item-name">B2B Brand Partnerships</div><div class="svc-item-desc">Building strategic relationships between malls and brands for co-promotional campaigns and activation partnerships.</div></div>
         </div>
       </div>
 
@@ -509,35 +498,17 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
           </div>
           <div>
-            <div class="svc-cat-title">Creative Solutions & Commercials</div>
-            <div class="svc-cat-sub">Website Design · Logo & Branding · Brand Still Shoots · Promo Production</div>
+            <div class="svc-cat-title">Creative Solutions &amp; Commercials</div>
+            <div class="svc-cat-sub">Website Design &middot; Logo &amp; Branding &middot; Brand Still Shoots &middot; Promo Production</div>
           </div>
         </div>
         <div class="svc-items">
-          <div class="svc-item">
-            <div class="svc-item-name">Website Designing</div>
-            <div class="svc-item-desc">Clean, conversion-focused websites that reflect your brand and perform across all devices.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Logo & Branding</div>
-            <div class="svc-item-desc">Visual identity systems — logos, color palettes, typography — built to make your brand unmistakable.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Merchandise Design</div>
-            <div class="svc-item-desc">On-brand merchandise and print collateral designed for maximum impact at events and retail.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Publication & Artwork Design</div>
-            <div class="svc-item-desc">Editorial layouts, marketing materials, and artwork for both digital and print publication.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Commercials & Brand Still Shoots</div>
-            <div class="svc-item-desc">Directing and producing commercial video content and professional still photography for brand campaigns.</div>
-          </div>
-          <div class="svc-item">
-            <div class="svc-item-name">Promo Production</div>
-            <div class="svc-item-desc">Short-form promotional content — reels, trailers, teasers — crafted for social media and broadcast.</div>
-          </div>
+          <div class="svc-item"><div class="svc-item-name">Website Designing</div><div class="svc-item-desc">Clean, conversion-focused websites that reflect your brand and perform across all devices.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Logo &amp; Branding</div><div class="svc-item-desc">Visual identity systems — logos, color palettes, typography — built to make your brand unmistakable.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Merchandise Design</div><div class="svc-item-desc">On-brand merchandise and print collateral designed for maximum impact at events and retail.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Publication &amp; Artwork Design</div><div class="svc-item-desc">Editorial layouts, marketing materials, and artwork for both digital and print publication.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Commercials &amp; Brand Still Shoots</div><div class="svc-item-desc">Directing and producing commercial video content and professional still photography for brand campaigns.</div></div>
+          <div class="svc-item"><div class="svc-item-name">Promo Production</div><div class="svc-item-desc">Short-form promotional content — reels, trailers, teasers — crafted for social media and broadcast.</div></div>
         </div>
       </div>
 
@@ -555,21 +526,19 @@
     </div>
     <div class="timeline">
 
-      <!-- Kolachi -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
           <div class="tl-header">
-            <div><div class="tl-role">Marketing Manager</div><div class="tl-company">Kolachi Events & Marketing</div></div>
+            <div><div class="tl-role">Marketing Manager</div><div class="tl-company">Kolachi Events &amp; Marketing</div></div>
             <div class="tl-duration">1.8 Years</div>
           </div>
           <ul class="tl-body tl-list">
-            <li>Spearheaded comprehensive marketing strategies and managed 360-solution campaigns for high-profile clients including ICC, Diners, J., Signature Mall UK, Igloo & more.</li>
+            <li>Spearheaded comprehensive marketing strategies and managed 360-solution campaigns for high-profile clients including ICC, Diners, J., Signature Mall UK, Igloo &amp; more.</li>
             <li>Successfully planned and executed over 20 large-scale corporate and public events, ensuring high-quality brand representation across all platforms.</li>
           </ul>
-          
-          <div class="img-strip" data-gallery="Kolachi Events & Marketing">
-            <div class="img-strip-cell"><img src="Screenshot 2026-06-15 074824.png" alt="Kolachi 1" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove();this.closest('.img-strip-cell')&&(this.closest('.img-strip-cell').innerHTML='<span>Photo</span>')"></div>
+          <div class="img-strip" data-gallery="Kolachi Events &amp; Marketing">
+            <div class="img-strip-cell"><img src="Screenshot 2026-06-15 074824.png" alt="Kolachi 1" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
             <div class="img-strip-cell"><img src="ddd.jpeg" alt="Kolachi 2" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
             <div class="img-strip-cell"><img src="bbb.jpeg" alt="Kolachi 3" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
             <div class="img-strip-cell"><img src="eee.png" alt="Kolachi 4" loading="lazy" onerror="this.closest('.img-strip-cell').classList.add('empty');this.remove()"></div>
@@ -578,7 +547,6 @@
         </div>
       </div>
 
-      <!-- Melo -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
@@ -603,7 +571,6 @@
         </div>
       </div>
 
-      <!-- Mega Mall -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
@@ -626,7 +593,6 @@
         </div>
       </div>
 
-      <!-- Square One -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
@@ -649,7 +615,6 @@
         </div>
       </div>
 
-      <!-- Atrium -->
       <div class="tl-item fade-in">
         <div class="tl-dot"></div>
         <div class="tl-card">
@@ -685,23 +650,21 @@
       <div class="divider"></div>
     </div>
     <div class="projects-grid">
-
       <div class="project-card fade-in">
         <div class="project-thumb-wrap" data-lightbox-src="images/proj-icc.jpg" data-lightbox-caption="ICC Champions Trophy 2025">
           <span class="project-num">01</span>
-          <img class="project-thumb" src="images/proj-icc.jpg" alt="ICC Champions Trophy" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M12 2L2 7l10 5 10-5-10-5z\'/><path d=\'M2 17l10 5 10-5\'/><path d=\'M2 12l10 5 10-5\'/></svg><span class=project-num>01</span>'">
+          <img class="project-thumb" src="images/proj-icc.jpg" alt="ICC Champions Trophy" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
           <div class="project-title">ICC Champions Trophy 2025</div>
-          <p class="project-desc">Directed nationwide event operations for the prestigious international cricket tournament, overseeing logistics, branding, and on-ground management across Karachi, Lahore & Rawalpindi.</p>
+          <p class="project-desc">Directed nationwide event operations for the prestigious international cricket tournament, overseeing logistics, branding, and on-ground management across Karachi, Lahore &amp; Rawalpindi.</p>
           <div class="project-tags"><span class="tag">Event Operations</span><span class="tag">Multi-City</span><span class="tag">Logistics</span></div>
         </div>
       </div>
-
       <div class="project-card fade-in">
         <div class="project-thumb-wrap" data-lightbox-src="images/proj-diners.jpg" data-lightbox-caption="Diners Brand Activation">
           <span class="project-num">02</span>
-          <img class="project-thumb" src="images/proj-diners.jpg" alt="Diners Brand Activation" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><rect x=2 y=3 width=20 height=14 rx=2/><path d=\'M8 21h8M12 17v4\'/></svg><span class=project-num>02</span>'">
+          <img class="project-thumb" src="images/proj-diners.jpg" alt="Diners Brand Activation" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
           <div class="project-title">Diners Brand Activation</div>
@@ -709,23 +672,21 @@
           <div class="project-tags"><span class="tag">Brand Activation</span><span class="tag">Retail Marketing</span><span class="tag">OOH</span></div>
         </div>
       </div>
-
       <div class="project-card fade-in">
         <div class="project-thumb-wrap" data-lightbox-src="images/proj-melo.jpg" data-lightbox-caption="Melo E-Commerce Launch">
           <span class="project-num">03</span>
-          <img class="project-thumb" src="images/proj-melo.jpg" alt="Melo E-Commerce Launch" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><circle cx=8 cy=21 r=1/><circle cx=19 cy=21 r=1/><path d=\'M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12\'/></svg><span class=project-num>03</span>'">
+          <img class="project-thumb" src="images/proj-melo.jpg" alt="Melo E-Commerce Launch" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
           <div class="project-title">Melo E-Commerce Launch</div>
-          <p class="project-desc">End-to-end digital launch of Melo by Imran Abbas — store setup, Meta & Google Ads, influencer partnerships, and SEO driving measurable growth in online sales.</p>
+          <p class="project-desc">End-to-end digital launch of Melo by Imran Abbas — store setup, Meta &amp; Google Ads, influencer partnerships, and SEO driving measurable growth in online sales.</p>
           <div class="project-tags"><span class="tag">E-Commerce</span><span class="tag">Meta Ads</span><span class="tag">Influencer PR</span></div>
         </div>
       </div>
-
       <div class="project-card fade-in">
         <div class="project-thumb-wrap" data-lightbox-src="images/proj-igloo.jpg" data-lightbox-caption="Igloo Seasonal Campaign">
           <span class="project-num">04</span>
-          <img class="project-thumb" src="images/proj-igloo.jpg" alt="Igloo Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'/><polyline points=\'9 22 9 12 15 12 15 22\'/></svg><span class=project-num>04</span>'">
+          <img class="project-thumb" src="images/proj-igloo.jpg" alt="Igloo Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
           <div class="project-title">Igloo Seasonal Campaign</div>
@@ -733,11 +694,10 @@
           <div class="project-tags"><span class="tag">FMCG Marketing</span><span class="tag">Sampling Events</span><span class="tag">Social Media</span></div>
         </div>
       </div>
-
       <div class="project-card fade-in">
         <div class="project-thumb-wrap" data-lightbox-src="images/proj-atrium.jpg" data-lightbox-caption="Atrium Mall Annual Campaign">
           <span class="project-num">05</span>
-          <img class="project-thumb" src="images/proj-atrium.jpg" alt="Atrium Mall Annual Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><rect x=2 y=7 width=20 height=14 rx=2/><path d=\'M16 3h-8l-2 4h12z\'/></svg><span class=project-num>05</span>'">
+          <img class="project-thumb" src="images/proj-atrium.jpg" alt="Atrium Mall Annual Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
           <div class="project-title">Atrium Mall Annual Campaign</div>
@@ -745,35 +705,32 @@
           <div class="project-tags"><span class="tag">Retail Events</span><span class="tag">Seasonal Campaigns</span><span class="tag">Budget Management</span></div>
         </div>
       </div>
-
       <div class="project-card fade-in">
-        <div class="project-thumb-wrap" data-lightbox-src="images/proj-j.jpg" data-lightbox-caption="J. Fashion 360° Campaign">
+        <div class="project-thumb-wrap" data-lightbox-src="images/proj-j.jpg" data-lightbox-caption="J. Fashion 360 Campaign">
           <span class="project-num">06</span>
-          <img class="project-thumb" src="images/proj-j.jpg" alt="J. Fashion Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z\'/></svg><span class=project-num>06</span>'">
+          <img class="project-thumb" src="images/proj-j.jpg" alt="J. Fashion Campaign" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
-          <div class="project-title">J. Fashion 360° Campaign</div>
+          <div class="project-title">J. Fashion 360&#176; Campaign</div>
           <p class="project-desc">Managed a 360-degree marketing campaign for J. covering digital, OOH, and in-store activations. Delivered cohesive brand messaging across all touchpoints for a major festive season launch.</p>
-          <div class="project-tags"><span class="tag">Fashion Marketing</span><span class="tag">360° Campaign</span><span class="tag">OOH</span></div>
+          <div class="project-tags"><span class="tag">Fashion Marketing</span><span class="tag">360&#176; Campaign</span><span class="tag">OOH</span></div>
         </div>
       </div>
-
       <div class="project-card fade-in">
         <div class="project-thumb-wrap" data-lightbox-src="images/proj-squareone.jpg" data-lightbox-caption="Square One Mall Events Series">
           <span class="project-num">07</span>
-          <img class="project-thumb" src="images/proj-squareone.jpg" alt="Square One Mall Events" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><polygon points=\'12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\'/></svg><span class=project-num>07</span>'">
+          <img class="project-thumb" src="images/proj-squareone.jpg" alt="Square One Mall Events" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
           <div class="project-title">Square One Mall Events Series</div>
-          <p class="project-desc">Spearheaded the full event lifecycle at Square One Mall — from concept to on-site execution — delivering seamless vendor coordination and promotional communications that drove visitor engagement.</p>
+          <p class="project-desc">Spearheaded the full event lifecycle at Square One Mall from concept to on-site execution, delivering seamless vendor coordination and promotional communications that drove visitor engagement.</p>
           <div class="project-tags"><span class="tag">Event Management</span><span class="tag">Vendor Coordination</span><span class="tag">PR</span></div>
         </div>
       </div>
-
       <div class="project-card fade-in">
         <div class="project-thumb-wrap" data-lightbox-src="images/proj-signature.jpg" data-lightbox-caption="Signature Mall UK Partnership">
           <span class="project-num">08</span>
-          <img class="project-thumb" src="images/proj-signature.jpg" alt="Signature Mall UK" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><circle cx=12 cy=12 r=10/><line x1=2 y1=12 x2=22 y2=12/><path d=\'M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\'/></svg><span class=project-num>08</span>'">
+          <img class="project-thumb" src="images/proj-signature.jpg" alt="Signature Mall UK" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
           <div class="project-title">Signature Mall UK Partnership</div>
@@ -781,11 +738,10 @@
           <div class="project-tags"><span class="tag">International Campaign</span><span class="tag">Cross-Border</span><span class="tag">Brand Strategy</span></div>
         </div>
       </div>
-
       <div class="project-card fade-in">
         <div class="project-thumb-wrap" data-lightbox-src="images/proj-megamall.jpg" data-lightbox-caption="Mega Mall Leasing Strategy">
           <span class="project-num">09</span>
-          <img class="project-thumb" src="images/proj-megamall.jpg" alt="Mega Mall Leasing Strategy" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><path d=\'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\'/><circle cx=12 cy=10 r=3/></svg><span class=project-num>09</span>'">
+          <img class="project-thumb" src="images/proj-megamall.jpg" alt="Mega Mall Leasing Strategy" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
           <div class="project-title">Mega Mall Leasing Strategy</div>
@@ -793,19 +749,17 @@
           <div class="project-tags"><span class="tag">Commercial Leasing</span><span class="tag">Market Analysis</span><span class="tag">B2B</span></div>
         </div>
       </div>
-
       <div class="project-card fade-in">
         <div class="project-thumb-wrap" data-lightbox-src="images/proj-seo.jpg" data-lightbox-caption="SEO & Content Growth Strategy">
           <span class="project-num">10</span>
-          <img class="project-thumb" src="images/proj-seo.jpg" alt="SEO & Content Strategy" onerror="this.style.display='none';this.parentElement.classList.add('no-img');this.parentElement.innerHTML+='<svg class=proj-icon width=64 height=64 viewBox=\'0 0 24 24\' fill=none stroke=\'rgba(138,43,226,.6)\' stroke-width=1><circle cx=11 cy=11 r=8/><line x1=21 y1=21 x2=16.65 y2=16.65/></svg><span class=project-num>10</span>'">
+          <img class="project-thumb" src="images/proj-seo.jpg" alt="SEO &amp; Content Strategy" onerror="this.style.display='none';this.parentElement.classList.add('no-img')">
         </div>
         <div class="project-body">
-          <div class="project-title">SEO & Content Growth Strategy</div>
+          <div class="project-title">SEO &amp; Content Growth Strategy</div>
           <p class="project-desc">Built and executed a full-funnel SEO and content strategy for an e-commerce brand — keyword research, on-page optimization, and content production that drove significant organic traffic growth.</p>
           <div class="project-tags"><span class="tag">SEO</span><span class="tag">Content Strategy</span><span class="tag">Organic Growth</span></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -822,7 +776,7 @@
       <div class="skill-card fade-in" data-skill="92">
         <div class="skill-header">
           <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <div><div class="skill-name">Event Planning & Operations</div><div class="skill-sub">Nationwide logistics · vendor management · on-ground execution</div></div>
+          <div><div class="skill-name">Event Planning &amp; Operations</div><div class="skill-sub">Nationwide logistics &middot; vendor management &middot; on-ground execution</div></div>
         </div>
         <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">92%</div>
@@ -830,7 +784,7 @@
       <div class="skill-card fade-in" data-skill="88">
         <div class="skill-header">
           <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-          <div><div class="skill-name">Performance Marketing</div><div class="skill-sub">Meta Ads · Google Ads · Budget management · ROI scaling</div></div>
+          <div><div class="skill-name">Performance Marketing</div><div class="skill-sub">Meta Ads &middot; Google Ads &middot; Budget management &middot; ROI scaling</div></div>
         </div>
         <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">88%</div>
@@ -838,7 +792,7 @@
       <div class="skill-card fade-in" data-skill="85">
         <div class="skill-header">
           <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-          <div><div class="skill-name">Digital Marketing & SEO</div><div class="skill-sub">Search visibility · content strategy · brand positioning</div></div>
+          <div><div class="skill-name">Digital Marketing &amp; SEO</div><div class="skill-sub">Search visibility &middot; content strategy &middot; brand positioning</div></div>
         </div>
         <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">85%</div>
@@ -846,7 +800,7 @@
       <div class="skill-card fade-in" data-skill="90">
         <div class="skill-header">
           <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h-8l-2 4h12z"/></svg></div>
-          <div><div class="skill-name">Commercial Strategy</div><div class="skill-sub">Leasing negotiations · B2B pitching · tenant relations</div></div>
+          <div><div class="skill-name">Commercial Strategy</div><div class="skill-sub">Leasing negotiations &middot; B2B pitching &middot; tenant relations</div></div>
         </div>
         <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">90%</div>
@@ -854,7 +808,7 @@
       <div class="skill-card fade-in" data-skill="82">
         <div class="skill-header">
           <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></div>
-          <div><div class="skill-name">E-Commerce Optimization</div><div class="skill-sub">CRO audits · dropshipping ecosystems · consumer journey mapping</div></div>
+          <div><div class="skill-name">E-Commerce Optimization</div><div class="skill-sub">CRO audits &middot; dropshipping ecosystems &middot; consumer journey mapping</div></div>
         </div>
         <div class="skill-bar-bg"><div class="skill-bar-fill"></div></div>
         <div class="skill-pct">82%</div>
@@ -909,7 +863,7 @@
 </section>
 
 <footer>
-  <span>© 2026 Muhammad Ali. All rights reserved.</span>
+  <span>&#169; 2026 Muhammad Ali. All rights reserved.</span>
   <div style="display:flex;gap:1.5rem">
     <a href="mailto:hello@muhammadali.com">Email</a>
     <a href="https://wa.me/923001234567" target="_blank">WhatsApp</a>
@@ -918,7 +872,6 @@
 </footer>
 
 <script>
-/* ─── PARTICLES ─── */
 (function(){
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
@@ -926,11 +879,10 @@
   function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
   window.addEventListener('resize', resize); resize();
   for(let i=0;i<55;i++) dots.push({ x:Math.random()*1920, y:Math.random()*1080, r:Math.random()*1.4+.4, vx:(Math.random()-.5)*.18, vy:(Math.random()-.5)*.18, a:Math.random()*.5+.1 });
-  function draw(){ ctx.clearRect(0,0,W,H); dots.forEach(d=>{ d.x+=d.vx; d.y+=d.vy; if(d.x<0||d.x>W)d.vx*=-1; if(d.y<0||d.y>H)d.vy*=-1; ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fillStyle=`rgba(138,43,226,${d.a})`; ctx.fill(); }); requestAnimationFrame(draw); }
+  function draw(){ ctx.clearRect(0,0,W,H); dots.forEach(d=>{ d.x+=d.vx; d.y+=d.vy; if(d.x<0||d.x>W)d.vx*=-1; if(d.y<0||d.y>H)d.vy*=-1; ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,Math.PI*2); ctx.fillStyle='rgba(138,43,226,'+d.a+')'; ctx.fill(); }); requestAnimationFrame(draw); }
   draw();
 })();
 
-/* ─── SCROLL ANIMATIONS ─── */
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -943,82 +895,53 @@ const observer = new IntersectionObserver((entries)=>{
 },{threshold:.15});
 document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
 
-/* ─── LIGHTBOX ─── */
 const lb        = document.getElementById('lightbox');
 const lbImg     = document.getElementById('lightbox-img');
 const lbCaption = document.getElementById('lightbox-caption');
 const lbClose   = document.getElementById('lightbox-close');
 const lbPrev    = document.getElementById('lightbox-prev');
 const lbNext    = document.getElementById('lightbox-next');
-
-let gallery = [];   // [{src, caption}]
-let gIndex  = 0;
+let gallery = [], gIndex = 0;
 
 function openLightbox(items, startIndex) {
-  gallery  = items;
-  gIndex   = startIndex;
-  showSlide(gIndex);
-  lb.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  gallery = items; gIndex = startIndex;
+  showSlide(gIndex); lb.classList.add('open'); document.body.style.overflow = 'hidden';
 }
-
-function closeLightbox() {
-  lb.classList.remove('open');
-  document.body.style.overflow = '';
-  gallery = [];
-}
-
+function closeLightbox() { lb.classList.remove('open'); document.body.style.overflow = ''; gallery = []; }
 function showSlide(i) {
-  lbImg.src         = gallery[i].src;
-  lbImg.alt         = gallery[i].caption;
+  lbImg.src = gallery[i].src; lbImg.alt = gallery[i].caption;
   lbCaption.textContent = gallery[i].caption;
   lbPrev.classList.toggle('hidden', i === 0);
   lbNext.classList.toggle('hidden', i === gallery.length - 1);
 }
-
 lbClose.addEventListener('click', closeLightbox);
 lbPrev.addEventListener('click', () => { if(gIndex > 0){ gIndex--; showSlide(gIndex); } });
 lbNext.addEventListener('click', () => { if(gIndex < gallery.length-1){ gIndex++; showSlide(gIndex); } });
-
 lb.addEventListener('click', e => { if(e.target === lb) closeLightbox(); });
-
 document.addEventListener('keydown', e => {
   if(!lb.classList.contains('open')) return;
   if(e.key === 'Escape') closeLightbox();
-  if(e.key === 'ArrowLeft'  && gIndex > 0)              { gIndex--; showSlide(gIndex); }
+  if(e.key === 'ArrowLeft' && gIndex > 0){ gIndex--; showSlide(gIndex); }
   if(e.key === 'ArrowRight' && gIndex < gallery.length-1){ gIndex++; showSlide(gIndex); }
 });
 
-/* Strip cells — group images per strip for prev/next navigation */
 document.querySelectorAll('.img-strip').forEach(strip => {
   const caption = strip.dataset.gallery || '';
-  const cells   = Array.from(strip.querySelectorAll('.img-strip-cell:not(.empty)'));
-  const items   = cells.map(cell => {
-    const img = cell.querySelector('img');
-    return { src: img ? img.src : '', caption };
-  }).filter(it => it.src);
-
-  cells.forEach((cell, idx) => {
-    cell.addEventListener('click', () => {
-      if(items[idx]) openLightbox(items, idx);
-    });
-  });
+  const cells = Array.from(strip.querySelectorAll('.img-strip-cell:not(.empty)'));
+  const items = cells.map(cell => { const img = cell.querySelector('img'); return { src: img ? img.src : '', caption }; }).filter(it => it.src);
+  cells.forEach((cell, idx) => { cell.addEventListener('click', () => { if(items[idx]) openLightbox(items, idx); }); });
 });
 
-/* Project thumbnails — single image lightbox */
 document.querySelectorAll('.project-thumb-wrap:not(.no-img)').forEach(wrap => {
-  const src     = wrap.dataset.lightboxSrc;
-  const caption = wrap.dataset.lightboxCaption || '';
+  const src = wrap.dataset.lightboxSrc; const caption = wrap.dataset.lightboxCaption || '';
   if(!src) return;
   wrap.addEventListener('click', () => openLightbox([{src, caption}], 0));
 });
 
-/* Headshot */
 const headshot = document.querySelector('.headshot-box[data-lightbox-src]');
 if(headshot) {
   headshot.addEventListener('click', () => {
-    const src     = headshot.dataset.lightboxSrc;
-    const caption = headshot.dataset.lightboxCaption || '';
+    const src = headshot.dataset.lightboxSrc; const caption = headshot.dataset.lightboxCaption || '';
     if(src) openLightbox([{src, caption}], 0);
   });
 }
